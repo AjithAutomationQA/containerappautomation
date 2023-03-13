@@ -13,32 +13,26 @@ public class LoginMethods extends ExcelRead {
 	public void enterTheCredentials() throws Throwable {
 
 		testData();
-		WebElement email = getMobileElement("Login.Email", LocatorPropertiesFile);
-		sendKey(email, validEmailID);
-		ExtentCucumberAdapter.addTestStepLog("Entered email: " + validEmailID);
-
-		WebElement password = getMobileElement("Login.Password", LocatorPropertiesFile);
-		sendKey(password, validpassword);
-		ExtentCucumberAdapter.addTestStepLog("Entered password: " + validpassword);
+		sendKey("Login.Email", LocatorPropertiesFile, validEmailID);
+		reportLog("Entered email: " + validEmailID);
+		sendKey("Login.Password", LocatorPropertiesFile, validpassword);
+		reportLog("Entered password: " + validpassword);
 
 	}
 
 	public void clickLoginButton() throws Throwable {
 
-		WebElement loginButton = getMobileElement("Login.LoginButton", LocatorPropertiesFile);
-
-		tapTheElement(loginButton);
+		tapTheElement("Login.LoginButton", LocatorPropertiesFile);
 
 	}
 
 	public void validateLogin() throws Throwable {
 
 		PrintError("waiting for Inbound");
-		WebElement Inbound = getMobileElement("Inbound", LocatorPropertiesFile);
-		isDisplayed(Inbound);
+		isDisplayed("Inbound", LocatorPropertiesFile);
 
-		// ExtentCucumberAdapter.addTestStepLog("Inbound button is displayed");
-		// ExtentCucumberAdapter.addTestStepLog("User logged in successfully");
+		// reportLog("Inbound button is displayed");
+		// reportLog("User logged in successfully");
 
 	}
 
@@ -48,21 +42,16 @@ public class LoginMethods extends ExcelRead {
 
 		boolean status = loginButton.isEnabled();
 		Assert.assertEquals(status, false);
-		ExtentCucumberAdapter.addTestStepLog("Login button is disabled");
+		reportLog("Login button is disabled");
 
 	}
 	
 	public void enterInvalidCredentials() throws Throwable {
 
-		WebElement email = getMobileElement("Login.Email", LocatorPropertiesFile);
-		sendKey(email, "testmail@gmail.com");
-		ExtentCucumberAdapter.addTestStepLog("Entered email: " + "testmail@gmail.com");
+		sendKey("Login.Email", LocatorPropertiesFile, "testmail@gmail.com");
+		reportLog("Entered email: " + "testmail@gmail.com");
 
-		WebElement password = getMobileElement("Login.Password", LocatorPropertiesFile);
-		sendKey(password, "test13");
-		ExtentCucumberAdapter.addTestStepLog("Entered password: " + "test13");
-		
-
-		
+		sendKey("Login.Password", LocatorPropertiesFile, "test13");
+		reportLog("Entered password: " + "test13");
 	}
 }

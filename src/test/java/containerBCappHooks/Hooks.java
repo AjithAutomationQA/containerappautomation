@@ -3,11 +3,12 @@ package containerBCappHooks;
 import org.openqa.selenium.OutputType;
 import containerBCapp.ExcelRead.ExcelRead;
 import io.cucumber.java.After;
+import io.cucumber.java.AfterStep;
 import io.cucumber.java.Scenario;
 
 public class Hooks extends ExcelRead {
 
-	@After()
+	@AfterStep()
 	public void screenShot(Scenario scenario) throws Throwable {
 
 	final byte[] screenshot = IOsdriver.getScreenshotAs(OutputType.BYTES);

@@ -12,6 +12,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
+
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
@@ -67,26 +69,6 @@ public class CommonUtilities {
 
 	}
 
-	public void screenShot(Scenario scenario) throws Throwable {
-
-		final byte[] screenshot = IOsdriver.getScreenshotAs(OutputType.BYTES);
-		scenario.attach(screenshot, "image/png", "");
-
-	}
-
-//	public static WebElement getElementbyXpath(String Property, String Location) throws Throwable {
-//		String xpath = ReadProperties(Property, Location);
-//		System.out.println(xpath);
-//		return IOsdriver.findElementByXPath(xpath);
-//	}
-//
-//	public static WebElement getElementbyId(String Property, String Location) throws Throwable {
-//		String id = ReadProperties(Property, Location);
-//		System.out.println(id);
-//		return IOsdriver.findElementByXPath(id);
-//
-//	}
-
 	public void waitForTheElement(String Locator, String locatorfile) throws Throwable {
 
 		WebDriverWait wait = new WebDriverWait(IOsdriver, 60);
@@ -95,19 +77,6 @@ public class CommonUtilities {
 		wait.until(ExpectedConditions.elementToBeClickable(element));
 
 	}
-	
-	public boolean waitForToast( String Text) {
-		
-		
-		String	element =	"(//XCUIElementTypeStaticText[@name=\"Unable to verify your account. Please try login again.\"])";
-		
-		WebDriverWait	wait = new WebDriverWait(IOsdriver, 60);
-		wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath(element), Text));
-		System.out.println("taost");
-		return true;
-
-	}
-	
 
 	public WebElement getMobileElement(String Locator, String locatorfile) throws Throwable {
 
@@ -119,48 +88,37 @@ public class CommonUtilities {
 
 	}
 
-	public WebElement isDisplayed(WebElement element) throws Throwable {
+	public WebElement isDisplayed(String Locator, String locatorfile) throws Throwable {
+		WebElement element = getMobileElement(Locator, locatorfile);
 
 		Assert.assertEquals(true, element.isDisplayed());
 
 		return element;
 	}
 
-	public void tapTheElement(WebElement element) throws Throwable {
+	public void tapTheElement(String Locator, String locatorfile) throws Throwable {
+		WebElement element = getMobileElement(Locator, locatorfile);
 		element.click();
 	}
 
-	public void sendKey(WebElement element, String name) throws Throwable {
-
+	public void sendKey(String Locator, String locatorfile, String name) throws Throwable {
+		WebElement element = getMobileElement(Locator, locatorfile);
 		element.sendKeys(name);
-
 	}
 
-	public void scrollToTheElement(WebElement element, String Direction) {
-
-		String flag = "False";
-		PrintValue("Looking for the given element");
-
-		while (flag == "False") {
-			if (element.isDisplayed()) {
-				PrintValue("Given element found");
-				waitFor(element);
-				flag = "false";
-			}
-
-			else {
-				PrintValue("Scrolling to the given element");
-				HashMap<String, Object> scrollObject = new HashMap<String, Object>();
-				scrollObject.put("direction", Direction);
-				scrollObject.put("xpath", element);
-				IOsdriver.executeScript("mobile: scroll", scrollObject);
-			}
-
-		}
-
+	public void reportLog(String Log) {
+		
+		ExtentCucumberAdapter.addTestStepLog(Log);
 	}
 
-	private void waitFor(WebElement element) {
+	public boolean waitForToast(String Text) {
+
+		String element = "(//XCUIElementTypeStaticText[@name=\"Unable to verify your account. Please try login again.\"])";
+
+		WebDriverWait wait = new WebDriverWait(IOsdriver, 60);
+		wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath(element), Text));
+		System.out.println("taost");
+		return true;
 
 	}
 
@@ -195,8 +153,51 @@ public class CommonUtilities {
 		} catch (Exception e) {
 			System.out.println("cleared");
 		}
+	}
 
-	} // **/XCUIElementTypeTextField[`value == "fyhhtesrt"`]
-		// **/XCUIElementTypeStaticText[`label == "testmail@gmail.com"`]
+	@SuppressWarnings("null")
+	public void screenShot() throws Throwable {
+		Scenario scenario = null;
+		final byte[] screenshot = IOsdriver.getScreenshotAs(OutputType.BYTES);
+		scenario.attach(screenshot, "image/png", "");
+
+	}
+
+//	public static WebElement getElementbyXpath(String Property, String Location) throws Throwable {
+//		String xpath = ReadProperties(Property, Location);
+//		System.out.println(xpath);
+//		return IOsdriver.findElementByXPath(xpath);
+//	}
+//
+//	public static WebElement getElementbyId(String Property, String Location) throws Throwable {
+//		String id = ReadProperties(Property, Location);
+//		System.out.println(id);
+//		return IOsdriver.findElementByXPath(id);
+//
+//	}
+
+//	public void scrollToTheElement(WebElement element, String Direction) {
+//
+//		String flag = "False";
+//		PrintValue("Looking for the given element");
+//
+//		while (flag == "False") {
+//			if (element.isDisplayed()) {
+//				PrintValue("Given element found");
+//				waitFor(element);
+//				flag = "false";
+//			}
+//
+//			else {
+//				PrintValue("Scrolling to the given element");
+//				HashMap<String, Object> scrollObject = new HashMap<String, Object>();
+//				scrollObject.put("direction", Direction);
+//				scrollObject.put("xpath", element);
+//				IOsdriver.executeScript("mobile: scroll", scrollObject);
+//			}
+//
+//		}
+//
+//	}
 
 }
