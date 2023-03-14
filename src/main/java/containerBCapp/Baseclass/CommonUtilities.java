@@ -105,6 +105,11 @@ public class CommonUtilities {
 		WebElement element = getMobileElement(Locator, locatorfile);
 		element.sendKeys(name);
 	}
+	
+	public void clearData(String Locator, String locatorfile) throws Throwable {
+		WebElement element = getMobileElement(Locator, locatorfile);
+		element.clear();
+	}
 
 	public void reportLog(String Log) {
 		

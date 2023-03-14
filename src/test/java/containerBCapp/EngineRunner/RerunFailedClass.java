@@ -5,20 +5,12 @@ import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(plugin = {"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:", "rerun:target/FailedScenarios.txt"},
 
-tags = "@Smoke",
 
-features = {"FeatureFiles"},  
+features = {"@target/FailedScenarios.txt"},  
 glue = {"containerBCappStepDefinition", "containerBCappHooks"}
 
 )
 
-public class RunnerClass extends AbstractTestNGCucumberTests {
+public class RerunFailedClass extends AbstractTestNGCucumberTests{
 
-	
 }
-
-
-
-
-
-

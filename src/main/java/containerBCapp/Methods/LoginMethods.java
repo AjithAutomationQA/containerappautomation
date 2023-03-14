@@ -9,6 +9,36 @@ import containerBCapp.ExcelRead.ExcelRead;
 
 public class LoginMethods extends ExcelRead {
 
+	public void loginDisabled() throws Throwable {
+
+		WebElement loginButton = getMobileElement("loginxpath", LocatorPropertiesFile);
+		boolean status = loginButton.isEnabled();
+		Assert.assertEquals(status, false);
+		reportLog("Login button is disabled");
+
+	}
+
+	public void enterInvalidCredentials() throws Throwable {
+		sendKey("Login.Email", LocatorPropertiesFile, "testmail@gmail.com");
+		reportLog("Entered email: " + "testmail@gmail.com");
+
+		sendKey("Login.Password", LocatorPropertiesFile, "test13");
+		reportLog("Entered password: " + "test13");
+	}
+
+	public void loginErrorToast() throws Throwable {
+
+		try {
+			waitForToast("Unable to verify your account. Please try login again.");
+			clearData("AfterEmail", LocatorPropertiesFile);
+			clearData("AfterPassword", LocatorPropertiesFile);
+		} catch (Exception e) {
+			clearData("AfterEmail", LocatorPropertiesFile);
+			clearData("AfterPassword", LocatorPropertiesFile);
+			reportLog(e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+	}
 
 	public void enterTheCredentials() throws Throwable {
 
@@ -30,28 +60,9 @@ public class LoginMethods extends ExcelRead {
 
 		PrintError("waiting for Inbound");
 		isDisplayed("Inbound", LocatorPropertiesFile);
-
 		// reportLog("Inbound button is displayed");
 		// reportLog("User logged in successfully");
 
 	}
 
-	public void loginDisabled() throws Throwable {
-
-		WebElement loginButton = getMobileElement("loginxpath", LocatorPropertiesFile);
-
-		boolean status = loginButton.isEnabled();
-		Assert.assertEquals(status, false);
-		reportLog("Login button is disabled");
-
-	}
-	
-	public void enterInvalidCredentials() throws Throwable {
-
-		sendKey("Login.Email", LocatorPropertiesFile, "testmail@gmail.com");
-		reportLog("Entered email: " + "testmail@gmail.com");
-
-		sendKey("Login.Password", LocatorPropertiesFile, "test13");
-		reportLog("Entered password: " + "test13");
-	}
 }

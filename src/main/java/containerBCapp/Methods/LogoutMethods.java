@@ -35,16 +35,5 @@ public class LogoutMethods extends CommonUtilities {
 	//	reportLog("User logged out successfully");
 
 	}
-	
-	public void loginDisabled() throws Throwable {
 
-		WebElement loginButton = getMobileElement("loginxpath", LocatorPropertiesFile);
-
-		boolean status = loginButton.isEnabled();
-		System.err.println("disabed");
-		System.err.println(status);
-		Assert.assertEquals(status, false);
-		reportLog("Login button is disabled");
-
-	}
 }
