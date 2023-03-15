@@ -15,6 +15,7 @@ import org.testng.Assert;
 import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
 
 import io.appium.java_client.MobileBy;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.ios.IOSDriver;
@@ -31,9 +32,9 @@ public class CommonUtilities {
 
 	public static String LocatorPropertiesFile = "./src/test/resources/Properties/Xpath.properties";
 	public static String AppPropertiesFile = "./src/test/resources/Properties/App.properties";
-	public String ExcelFile = "./TestData/AnswerConnectData.xlsx";
+	public static String ExcelFile = "./TestData/AnswerConnectData.xlsx";
 
-	public void lauchTheApp() throws Throwable {
+	public static void lauchTheApp() throws Throwable {
 
 		DesiredCap dc = new DesiredCap();
 		dc.LaunchIosApp();
@@ -49,7 +50,7 @@ public class CommonUtilities {
 		return Prop.getProperty(Property);
 	}
 
-	public static WebElement getElement(String Property, String Location) throws Throwable {
+	public WebElement getElement(String Property, String Location) throws Throwable {
 
 		String LocatorType, LocatorValue;
 		Properties Prop = new Properties();
@@ -105,39 +106,47 @@ public class CommonUtilities {
 		WebElement element = getMobileElement(Locator, locatorfile);
 		element.sendKeys(name);
 	}
-	
+
 	public void clearData(String Locator, String locatorfile) throws Throwable {
 		WebElement element = getMobileElement(Locator, locatorfile);
 		element.clear();
 	}
 
 	public void reportLog(String Log) {
-		
+
 		ExtentCucumberAdapter.addTestStepLog(Log);
 	}
 
 	public boolean waitForToast(String Text) {
 
-		String element = "(//XCUIElementTypeStaticText[@name=\"Unable to verify your account. Please try login again.\"])";
+//		String element = "(//XCUIElementTypeText[@name=\"Unable to verify your account. Please try login again.\"])";
 
-		WebDriverWait wait = new WebDriverWait(IOsdriver, 60);
-		wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath(element), Text));
-		System.out.println("taost");
+//		WebDriverWait wait = new WebDriverWait(IOsdriver, 60);
+//		wait.until(ExpectedConditions.textToBePresentInElementValue(By.xpath(element), Text));
+		
+		   MobileElement toastElement = IOsdriver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Unable to verify your account. Please try login again.']"));
+
+	        // Get the text of the toast message
+	        String toastText = toastElement.getText();
+
+	        // Validate the text of the toast message
+	        Assert.assertEquals(toastText, "Unable to verify your account. Please try login again.");
+System.out.println("taost");
 		return true;
 
 	}
 
-	public static void PrintValue(String Value) {
+	public void PrintValue(String Value) {
 
 		System.out.println(Value);
 	}
 
-	public static void PrintError(String Value) {
+	public void PrintError(String Value) {
 
 		System.err.println(Value);
 	}
 
-	public static void ScrollToElement(String Xpath, String Direction) {
+	public void ScrollToElement(String Xpath, String Direction) {
 
 		JavascriptExecutor js = (JavascriptExecutor) IOsdriver;
 		HashMap<String, String> scrollObject = new HashMap<String, String>();
@@ -168,13 +177,13 @@ public class CommonUtilities {
 
 	}
 
-//	public static WebElement getElementbyXpath(String Property, String Location) throws Throwable {
+//	public  WebElement getElementbyXpath(String Property, String Location) throws Throwable {
 //		String xpath = ReadProperties(Property, Location);
 //		System.out.println(xpath);
 //		return IOsdriver.findElementByXPath(xpath);
 //	}
 //
-//	public static WebElement getElementbyId(String Property, String Location) throws Throwable {
+//	public  WebElement getElementbyId(String Property, String Location) throws Throwable {
 //		String id = ReadProperties(Property, Location);
 //		System.out.println(id);
 //		return IOsdriver.findElementByXPath(id);

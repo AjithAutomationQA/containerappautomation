@@ -10,7 +10,7 @@ import io.appium.java_client.ios.IOSElement;
 
 public class DesiredCap extends CommonUtilities {
 	
-	public  void LaunchIosApp() throws Throwable {
+	public static void LaunchIosApp() throws Throwable {
 
 		DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
 

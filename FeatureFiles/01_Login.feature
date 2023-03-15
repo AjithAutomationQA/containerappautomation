@@ -2,7 +2,7 @@ Feature: To verify the login feature
 
   @Smoke
   Scenario: To verify that the login button is disabled
-    Given User opens the app
+    #Given User opens the app
     And The login button should be disabled with email and password field empty
 
   @Smoke

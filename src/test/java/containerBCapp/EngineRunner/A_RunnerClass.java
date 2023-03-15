@@ -12,7 +12,8 @@ glue = {"containerBCappStepDefinition", "containerBCappHooks"}
 
 )
 
-public class RunnerClass extends AbstractTestNGCucumberTests {
+public class A_RunnerClass extends AbstractTestNGCucumberTests {
+	
 
 	
 }

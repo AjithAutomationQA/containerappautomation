@@ -7,11 +7,11 @@ import io.cucumber.java.en.Then;
 
 public class LoginStepdefiniton extends LoginMethods {
 
-	@Given("User opens the app")
-	public void user_opens_the_app() throws Throwable {
-
-		lauchTheApp();
-	}
+//	@Given("User opens the app")
+//	public void user_opens_the_app() throws Throwable {
+//
+//		
+//	}
 	
 	@And("The login button should be disabled with email and password field empty")
 	public void the_login_button_should_be_disabled_with_email_and_password_field_empty() throws Throwable {

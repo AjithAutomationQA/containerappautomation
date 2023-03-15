@@ -3,9 +3,15 @@ package containerBCappHooks;
 import org.openqa.selenium.OutputType;
 import containerBCapp.ExcelRead.ExcelRead;
 import io.cucumber.java.AfterStep;
+import io.cucumber.java.BeforeAll;
 import io.cucumber.java.Scenario;
 
 public class Hooks extends ExcelRead {
+	
+	@BeforeAll
+	public static  void xxx() throws Throwable {
+		lauchTheApp();
+	}
 
 	@AfterStep()
 	public void screenShot(Scenario scenario) throws Throwable {
@@ -24,13 +30,13 @@ public class Hooks extends ExcelRead {
 //		String base64EncodedScreenshot =  new String(encoded, StandardCharsets.US_ASCII);
 //		scenario.attach(base64EncodedScreenshot, "image/png", "");
 		
+	
+//		final String Screenshot = IOsdriver.getScreenshotAs(OutputType.BASE64);
+//		scenario.attach(Screenshot,"image/png","BASE64");
 		
-		final String Screenshot = IOsdriver.getScreenshotAs(OutputType.BASE64);
-		scenario.attach(Screenshot,"image/png","BASE64");
 		
-		
-//		byte[] screenshotBytes = IOsdriver.getScreenshotAs(OutputType.BYTES);
-//		scenario.attach(screenshotBytes, "image/png", "");
+		byte[] screenshotBytes = IOsdriver.getScreenshotAs(OutputType.BYTES);
+		scenario.attach(screenshotBytes, "image/png", "");
 
 			
 //	final byte[] screenshot = IOsdriver.getScreenshotAs(OutputType.BYTES);
