@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Properties;
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebElement;
@@ -15,7 +14,6 @@ import org.testng.Assert;
 import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
 
 import io.appium.java_client.MobileBy;
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.ios.IOSDriver;
@@ -34,6 +32,7 @@ public class CommonUtilities {
 	public static String AppPropertiesFile = "./src/test/resources/Properties/App.properties";
 	public static String ExcelFile = "./TestData/AnswerConnectData.xlsx";
 
+	@SuppressWarnings("static-access")
 	public static void lauchTheApp() throws Throwable {
 
 		DesiredCap dc = new DesiredCap();
@@ -115,25 +114,6 @@ public class CommonUtilities {
 	public void reportLog(String Log) {
 
 		ExtentCucumberAdapter.addTestStepLog(Log);
-	}
-
-	public boolean waitForToast(String Text) {
-
-//		String element = "(//XCUIElementTypeText[@name=\"Unable to verify your account. Please try login again.\"])";
-
-//		WebDriverWait wait = new WebDriverWait(IOsdriver, 60);
-//		wait.until(ExpectedConditions.textToBePresentInElementValue(By.xpath(element), Text));
-		
-		   MobileElement toastElement = IOsdriver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Unable to verify your account. Please try login again.']"));
-
-	        // Get the text of the toast message
-	        String toastText = toastElement.getText();
-
-	        // Validate the text of the toast message
-	        Assert.assertEquals(toastText, "Unable to verify your account. Please try login again.");
-System.out.println("taost");
-		return true;
-
 	}
 
 	public void PrintValue(String Value) {

@@ -7,13 +7,7 @@ import io.cucumber.java.en.Then;
 
 public class LoginStepdefiniton extends LoginMethods {
 
-//	@Given("User opens the app")
-//	public void user_opens_the_app() throws Throwable {
-//
-//		
-//	}
-	
-	@And("The login button should be disabled with email and password field empty")
+	@Given("The login button should be disabled with email and password field empty")
 	public void the_login_button_should_be_disabled_with_email_and_password_field_empty() throws Throwable {
 
 		loginDisabled();
@@ -28,8 +22,7 @@ public class LoginStepdefiniton extends LoginMethods {
 	@Then("User should see a warning toast")
 	public void user_should_see_a_warning_toast() throws Throwable {
 
-		loginErrorToast();
-
+		loginErrorToast("Unable to verify your account. Please try login again.");
 	}
 	
 	@And("User enters the valid email and valid password")

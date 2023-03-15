@@ -1,11 +1,10 @@
 package containerBCapp.Methods;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
-
-import containerBCapp.Baseclass.DesiredCap;
 import containerBCapp.ExcelRead.ExcelRead;
+import io.appium.java_client.MobileElement;
 
 public class LoginMethods extends ExcelRead {
 
@@ -14,30 +13,43 @@ public class LoginMethods extends ExcelRead {
 		WebElement loginButton = getMobileElement("loginxpath", LocatorPropertiesFile);
 		boolean status = loginButton.isEnabled();
 		Assert.assertEquals(status, false);
-		reportLog("Login button is disabled");
+		PrintValue("Login button is disabled");
 
 	}
 
 	public void enterInvalidCredentials() throws Throwable {
-		sendKey("Login.Email", LocatorPropertiesFile, "testmail@gmail.com");
-		reportLog("Entered email: " + "testmail@gmail.com");
+		testData();
+		sendKey("Login.Email", LocatorPropertiesFile, inValidEmailID);
+		reportLog("Entered email: " + inValidEmailID);
 
-		sendKey("Login.Password", LocatorPropertiesFile, "test13");
-		reportLog("Entered password: " + "test13");
+		sendKey("Login.Password", LocatorPropertiesFile, inValidpassword);
+		reportLog("Entered password: " + inValidpassword);
 	}
 
-	public void loginErrorToast() throws Throwable {
+	public void loginErrorToast(String Text) throws Throwable {
 
 		try {
-			waitForToast("Unable to verify your account. Please try login again.");
-			clearData("AfterEmail", LocatorPropertiesFile);
-			clearData("AfterPassword", LocatorPropertiesFile);
-		} catch (Exception e) {
-			clearData("AfterEmail", LocatorPropertiesFile);
-			clearData("AfterPassword", LocatorPropertiesFile);
+
+			MobileElement toastElement = IOsdriver.findElement(By.xpath(
+					"//XCUIElementTypeStaticText[@name='Unable to verify your account. Please try login again.']"));
+
+			String toastText = toastElement.getText();
+			Assert.assertEquals(toastText, Text);
+			reportLog("Toast Message: " + toastText);
+			PrintValue("Toast Message: " + toastText);
+		} 
+		catch (Exception e) {
 			reportLog(e.getMessage());
-			Assert.fail(e.getMessage());
 		}
+		finally {
+			clearCredentials();
+		}
+	}
+	
+	public void clearCredentials() throws Throwable {
+
+		clearData("AfterEmail", LocatorPropertiesFile);
+		clearData("AfterPassword", LocatorPropertiesFile);
 	}
 
 	public void enterTheCredentials() throws Throwable {
@@ -58,10 +70,8 @@ public class LoginMethods extends ExcelRead {
 
 	public void validateLogin() throws Throwable {
 
-		PrintError("waiting for Inbound");
 		isDisplayed("Inbound", LocatorPropertiesFile);
-		// reportLog("Inbound button is displayed");
-		// reportLog("User logged in successfully");
+		PrintValue("Logged in successfully");
 
 	}
 

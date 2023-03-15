@@ -1,10 +1,5 @@
 package containerBCapp.Methods;
 
-import org.openqa.selenium.WebElement;
-import org.testng.Assert;
-
-import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
-
 import containerBCapp.Baseclass.CommonUtilities;
 
 public class LogoutMethods extends CommonUtilities {
@@ -12,9 +7,7 @@ public class LogoutMethods extends CommonUtilities {
 	public void tapMoreButton() throws Throwable {
 
 		tapTheElement("Settings", LocatorPropertiesFile);
-	//	reportLog("Tapped on settings button");
 		isDisplayed("Menu.MyBusiness", LocatorPropertiesFile);
-	//	reportLog("MyBusiness button is displayed");
 
 	}
 
@@ -22,8 +15,6 @@ public class LogoutMethods extends CommonUtilities {
 
 	
 		tapTheElement("Menu.LogOut", LocatorPropertiesFile);
-	//	reportLog("Tapped on log out button");
-		
 		tapTheElement("Menu.YesLogOut", LocatorPropertiesFile);
 		reportLog("Yes, log out is tapped");
 
@@ -32,7 +23,7 @@ public class LogoutMethods extends CommonUtilities {
 	public void validateLogout() throws Throwable {
 
 		isDisplayed("Login.Email", LocatorPropertiesFile);
-	//	reportLog("User logged out successfully");
+		PrintValue("User logged out successfully");
 
 	}
 

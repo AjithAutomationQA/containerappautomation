@@ -1,6 +1,7 @@
+@Logout
 Feature: To verify the logout feature
 
-@Smoke
+  @Smoke
   Scenario: To logout the app
     Given User taps on the settings button
     And User tap on the logout button
