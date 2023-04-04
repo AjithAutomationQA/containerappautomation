@@ -11,7 +11,7 @@ public class ForgotPasswordMethods extends ExcelRead {
 	public void tapForgotPassword() throws Throwable {
 
 		tapTheElement("Forgot.Password", LocatorPropertiesFile);
-		isDisplayed("Forgot.ResetPassword", LocatorPropertiesFile);
+		isElementDisplayed("Forgot.ResetPassword", LocatorPropertiesFile);
 
 	}
 
@@ -36,7 +36,7 @@ public class ForgotPasswordMethods extends ExcelRead {
 					.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Reset link sent successfully']"));
 
 			String toastText = toastElement.getText();
-			Assert.assertEquals(toastText, Text);
+			assertValues(toastText, Text);
 			reportLog("Toast Message: " + toastText);
 			PrintValue("Toast Message: " + toastText);
 
@@ -46,7 +46,7 @@ public class ForgotPasswordMethods extends ExcelRead {
 
 			clearData("Forgot.Email", LocatorPropertiesFile);
 			tapTheElement("Forgot.BackToLogin", LocatorPropertiesFile);
-			isDisplayed("Forgot.Password", LocatorPropertiesFile);
+			isElementDisplayed("Forgot.Password", LocatorPropertiesFile);
 
 		}
 

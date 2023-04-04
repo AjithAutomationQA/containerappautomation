@@ -34,7 +34,7 @@ public class LoginMethods extends ExcelRead {
 					"//XCUIElementTypeStaticText[@name='Unable to verify your account. Please try login again.']"));
 
 			String toastText = toastElement.getText();
-			Assert.assertEquals(toastText, Text);
+			assertValues(toastText, Text);
 			reportLog("Toast Message: " + toastText);
 			PrintValue("Toast Message: " + toastText);
 		} 
@@ -70,7 +70,7 @@ public class LoginMethods extends ExcelRead {
 
 	public void validateLogin() throws Throwable {
 
-		isDisplayed("Inbound", LocatorPropertiesFile);
+		isElementDisplayed("Inbound", LocatorPropertiesFile);
 		PrintValue("Logged in successfully");
 
 	}

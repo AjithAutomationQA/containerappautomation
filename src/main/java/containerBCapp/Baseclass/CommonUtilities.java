@@ -25,7 +25,6 @@ public class CommonUtilities {
 	public static Properties Prop;
 	public static String Locator;
 	public static File FileLocation;
-	public static AndroidDriver<AndroidElement> AndroidDriver;
 	public static IOSDriver<IOSElement> IOsdriver;
 
 	public static String LocatorPropertiesFile = "./src/test/resources/Properties/Xpath.properties";
@@ -82,17 +81,15 @@ public class CommonUtilities {
 
 		WebDriverWait wait = new WebDriverWait(IOsdriver, 60);
 		WebElement element = getElement(Locator, locatorfile);
-
 		wait.until(ExpectedConditions.visibilityOf(element));
 		return element;
 
 	}
 
-	public WebElement isDisplayed(String Locator, String locatorfile) throws Throwable {
+	public WebElement isElementDisplayed(String Locator, String locatorfile) throws Throwable {
+
 		WebElement element = getMobileElement(Locator, locatorfile);
-
 		Assert.assertEquals(true, element.isDisplayed());
-
 		return element;
 	}
 
@@ -109,6 +106,11 @@ public class CommonUtilities {
 	public void clearData(String Locator, String locatorfile) throws Throwable {
 		WebElement element = getMobileElement(Locator, locatorfile);
 		element.clear();
+	}
+
+	public void assertValues(String toastText, String Text) throws Throwable {
+
+		Assert.assertEquals(toastText, Text);
 	}
 
 	public void reportLog(String Log) {
@@ -156,42 +158,5 @@ public class CommonUtilities {
 		scenario.attach(screenshot, "image/png", "");
 
 	}
-
-//	public  WebElement getElementbyXpath(String Property, String Location) throws Throwable {
-//		String xpath = ReadProperties(Property, Location);
-//		System.out.println(xpath);
-//		return IOsdriver.findElementByXPath(xpath);
-//	}
-//
-//	public  WebElement getElementbyId(String Property, String Location) throws Throwable {
-//		String id = ReadProperties(Property, Location);
-//		System.out.println(id);
-//		return IOsdriver.findElementByXPath(id);
-//
-//	}
-
-//	public void scrollToTheElement(WebElement element, String Direction) {
-//
-//		String flag = "False";
-//		PrintValue("Looking for the given element");
-//
-//		while (flag == "False") {
-//			if (element.isDisplayed()) {
-//				PrintValue("Given element found");
-//				waitFor(element);
-//				flag = "false";
-//			}
-//
-//			else {
-//				PrintValue("Scrolling to the given element");
-//				HashMap<String, Object> scrollObject = new HashMap<String, Object>();
-//				scrollObject.put("direction", Direction);
-//				scrollObject.put("xpath", element);
-//				IOsdriver.executeScript("mobile: scroll", scrollObject);
-//			}
-//
-//		}
-//
-//	}
 
 }

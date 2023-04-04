@@ -1,6 +1,8 @@
 package containerBCappHooks;
 
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+
 import containerBCapp.ExcelRead.ExcelRead;
 import io.cucumber.java.AfterStep;
 import io.cucumber.java.BeforeAll;
@@ -37,7 +39,10 @@ public class Hooks extends ExcelRead {
 		
 		byte[] screenshotBytes = IOsdriver.getScreenshotAs(OutputType.BYTES);
 		scenario.attach(screenshotBytes, "image/png", "");
-
+		
+//		   TakesScreenshot screenShot=(TakesScreenshot)IOsdriver;
+//	        String base64file=screenShot.getScreenshotAs(OutputType.BASE64);
+//	        scenario.attach(base64file, "image/png", "");
 			
 //	final byte[] screenshot = IOsdriver.getScreenshotAs(OutputType.BYTES);
 //		scenario.attach(screenshot, "image/png", "");
