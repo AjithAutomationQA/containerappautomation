@@ -1,9 +1,16 @@
 package containerBCapp.Baseclass;
 
+import static io.appium.java_client.touch.LongPressOptions.longPressOptions;
+import static io.appium.java_client.touch.offset.ElementOption.element;
+
 import java.io.File;
 import java.io.FileReader;
+import java.time.Duration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebElement;
@@ -14,10 +21,14 @@ import org.testng.Assert;
 import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
 
 import io.appium.java_client.MobileBy;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSElement;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
 import io.cucumber.java.Scenario;
 
 public class CommonUtilities {
@@ -58,13 +69,25 @@ public class CommonUtilities {
 		LocatorType = Prop.getProperty(Property).split(":")[0];
 		LocatorValue = Prop.getProperty(Property).split(":")[1];
 
-		if (LocatorType.toLowerCase().equals("accessibility"))
+		if (LocatorType.equalsIgnoreCase("accessibility"))
 			return (WebElement) IOsdriver.findElement(MobileBy.AccessibilityId(LocatorValue));
-		else if (LocatorType.toLowerCase().equals("xpath"))
+
+		else if (LocatorType.equalsIgnoreCase("xpath"))
 			return IOsdriver.findElementByXPath(LocatorValue);
+
+		else if (LocatorType.equalsIgnoreCase("iOSClassChain"))
+			return IOsdriver.findElement(MobileBy.iOSClassChain(LocatorValue));
 
 		else
 			throw new Exception("Unknown locator type '" + LocatorType + "'");
+
+	}
+
+	public void waitFor(WebElement element) throws Throwable {
+
+		WebDriverWait wait = new WebDriverWait(IOsdriver, 60);
+
+		wait.until(ExpectedConditions.elementToBeClickable(element));
 
 	}
 
@@ -82,6 +105,7 @@ public class CommonUtilities {
 		WebDriverWait wait = new WebDriverWait(IOsdriver, 60);
 		WebElement element = getElement(Locator, locatorfile);
 		wait.until(ExpectedConditions.visibilityOf(element));
+		element.isDisplayed();
 		return element;
 
 	}
@@ -93,24 +117,50 @@ public class CommonUtilities {
 		return element;
 	}
 
-	public void tapTheElement(String Locator, String locatorfile) throws Throwable {
+	public WebElement isElementDisplayed(WebElement element) throws Throwable {
+
+		Assert.assertEquals(true, element.isDisplayed());
+		return element;
+	}
+
+	public WebElement tapTheElement(String Locator, String locatorfile) throws Throwable {
 		WebElement element = getMobileElement(Locator, locatorfile);
 		element.click();
+		return element;
 	}
 
 	public void sendKey(String Locator, String locatorfile, String name) throws Throwable {
 		WebElement element = getMobileElement(Locator, locatorfile);
+		element.click();
 		element.sendKeys(name);
 	}
 
 	public void clearData(String Locator, String locatorfile) throws Throwable {
 		WebElement element = getMobileElement(Locator, locatorfile);
+		element.click();
 		element.clear();
 	}
 
-	public void assertValues(String toastText, String Text) throws Throwable {
+	public String getText(String Locator, String locatorfile) throws Throwable {
+		WebElement element = getMobileElement(Locator, locatorfile);
+		String text = element.getText();
+		return text;
+	}
+
+	public void assertTextValue(String toastText, String Text) throws Throwable {
 
 		Assert.assertEquals(toastText, Text);
+	}
+
+	public void assertTextFalse(String toastText, String Text) throws Throwable {
+
+		Assert.assertEquals(false, toastText.equalsIgnoreCase(Text) );
+	}
+
+	public void assertEquals(WebElement element, String input, String name) {
+		String getheadertext = element.getText();
+		Assert.assertEquals(input, getheadertext);
+		PrintValue(name);
 	}
 
 	public void reportLog(String Log) {
@@ -151,11 +201,151 @@ public class CommonUtilities {
 		}
 	}
 
-	@SuppressWarnings("null")
-	public void screenShot() throws Throwable {
-		Scenario scenario = null;
-		final byte[] screenshot = IOsdriver.getScreenshotAs(OutputType.BYTES);
-		scenario.attach(screenshot, "image/png", "");
+	public String swipeRightToLeft(String Name, String Direction) throws Throwable {
+
+		String flag = "False";
+		String messageName = null;
+		WebElement element = null;
+		PrintValue("Looking for the given message");
+		while (flag == "False") {
+
+
+			element = ioschain("**/XCUIElementTypeStaticText[`label == \"" + Name + "\"`]");
+			if(element.isDisplayed()) {
+				messageName = element.getText();
+				int leftX = element.getLocation().getX();
+				int rightX = leftX + element.getSize().getWidth();
+				int upperY = element.getLocation().getY();
+				TouchAction action = new TouchAction(IOsdriver);
+				action.press(PointOption.point(rightX, upperY))
+				.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(2))).moveTo(PointOption.point(0, upperY))
+				.release();
+				IOsdriver.performTouchAction(action);
+				flag = "false";
+			}
+			else {
+				PrintValue("Scrolling to the given element");
+				HashMap<String, Object> scrollObject = new HashMap<String, Object>();
+				scrollObject.put("direction", Direction);
+				scrollObject.put("xpath", element);
+				IOsdriver.executeScript("mobile: scroll", scrollObject);
+			}
+
+		}
+		return messageName;
+
+	}
+
+	public String swipeR2LusingLocator(WebElement Element) throws Throwable {
+		String text = null;
+		if(Element.isDisplayed()) {
+			text	 = Element.getText();
+			PrintValue(text);
+			int leftX = Element.getLocation().getX();
+			int rightX = leftX + Element.getSize().getWidth();
+			int upperY = Element.getLocation().getY();
+			TouchAction action = new TouchAction(IOsdriver);
+			action.press(PointOption.point(rightX, upperY))
+			.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(2))).moveTo(PointOption.point(0, upperY))
+			.release();
+			IOsdriver.performTouchAction(action);
+		}
+		return text;
+
+
+	}
+
+	public WebElement ioschain(String inboxMessage) {
+
+		WebElement d = IOsdriver.findElement(MobileBy.iOSClassChain(inboxMessage));
+		return d;
+	}
+
+	public WebElement scroll(String Name, String Direction) throws Throwable {
+
+		String flag = "False";
+		WebElement element = null;
+
+		while (flag == "False") {
+
+			element = ioschain("**/XCUIElementTypeStaticText[`label == \"" + Name + "\"`]");
+			if (element.isDisplayed()) {
+				PrintValue("Message found");
+				waitFor(element);
+				flag = "false";
+			}
+
+
+			else {
+				PrintValue("Scrolling to the given element");
+				HashMap<String, Object> scrollObject = new HashMap<String, Object>();
+				scrollObject.put("direction", Direction);
+				scrollObject.put("xpath", element);
+				IOsdriver.executeScript("mobile: scroll", scrollObject);
+			}
+
+		}
+		return element;
+	}
+
+	public String longPress(String Name, String Direction) {
+
+		// Find the current element
+		WebElement currentElement = IOsdriver.findElement(By.xpath("//your_current_locator"));
+
+		// Find the preceding sibling element
+		MobileElement precedingElement = null;
+		List<IOSElement> precedingElements = IOsdriver.findElements(By.xpath("//preceding-sibling::*"));
+		for (MobileElement element : precedingElements) {
+			if (element.getLocation().getY() < currentElement.getLocation().getY()) {
+				precedingElement = element;
+			}
+		}
+
+
+		String flag = "False";
+		String messageName = null;
+		WebElement element = null;
+		PrintValue("Looking for the given message to long press");
+		while (flag == "False") {
+
+
+			element = ioschain("**/XCUIElementTypeStaticText[`label == \"" + Name + "\"`]");
+			if(element.isDisplayed()) {
+				messageName = element.getText();
+
+				// Creating the object of Touch Action
+				@SuppressWarnings("rawtypes")
+				TouchAction action = new TouchAction(IOsdriver);
+				action.longPress(longPressOptions().withElement(element(element)).withDuration(Duration.ofMillis(10000)))
+				.release().perform();
+				flag = "false";
+			}
+
+			else {
+				PrintValue("Scrolling to the given element");
+				HashMap<String, Object> scrollObject = new HashMap<String, Object>();
+				scrollObject.put("direction", Direction);
+				scrollObject.put("xpath", element);
+				IOsdriver.executeScript("mobile: scroll", scrollObject);
+			}
+
+		}
+		return messageName;
+
+	}
+
+	public void longpress(WebElement Element) {
+
+		TouchAction action = new TouchAction(IOsdriver);
+		action.longPress(longPressOptions().withElement(element(Element)).withDuration(Duration.ofMillis(10000)))
+		.release().perform();
+	}
+
+	public void killAndRelaunch() throws Throwable {
+		IOsdriver.terminateApp(ReadProperties("bundleId", AppPropertiesFile));
+		IOsdriver.launchApp();
+
 
 	}
 

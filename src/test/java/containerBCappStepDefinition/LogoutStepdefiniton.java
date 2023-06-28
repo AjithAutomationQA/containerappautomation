@@ -13,12 +13,18 @@ public class LogoutStepdefiniton extends LogoutMethods {
 		tapSettingsButton();
 	}
 
-	@And("^User tap on the logout button and taps cancel button$")
-	public void user_tap_on_the_logout_button_and_taps_cancel_button() throws Throwable {
+	   @And("^User taps on the logout button$")
+	    public void user_tap_on_the_logout_button()  throws Throwable {
 
-		tapCancelButton();
+		   tapLogoutButton();
 
 	}
+	   
+	    @And("^taps cancel button$")
+	    public void taps_cancel_button() throws Throwable {
+	    	
+	    	tapCancelButton();
+	    }
 
 	@Then("^User should stay in the settings tab$")
 	public void user_should_stay_in_the_settings_tab() throws Throwable {
@@ -26,10 +32,10 @@ public class LogoutStepdefiniton extends LogoutMethods {
 		settingsTab();
 	}
 
-	@And("^User tap on the logout button and taps logout button$")
-	public void user_tap_on_the_logout_button_and_taps_logout_button() throws Throwable {
+	   @And("^taps yes logout button$")
+	    public void taps_yes_logout_button() throws Throwable {
 
-		tapLogoutButton();
+		   tapYesLogoutButton();
 	}
 
 	@Then("User should be logged out successfully")

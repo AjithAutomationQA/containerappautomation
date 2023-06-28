@@ -4,6 +4,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
 import containerBCapp.ExcelRead.ExcelRead;
+import io.cucumber.java.After;
 import io.cucumber.java.AfterStep;
 import io.cucumber.java.BeforeAll;
 import io.cucumber.java.Scenario;
@@ -15,7 +16,7 @@ public class Hooks extends ExcelRead {
 		lauchTheApp();
 	}
 
-	@AfterStep()
+	@After()
 	public void screenShot(Scenario scenario) throws Throwable {
 
 		

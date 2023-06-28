@@ -23,7 +23,7 @@ public class DesiredCap extends CommonUtilities {
 		desiredCapabilities.setCapability("xcodeSigningId", ReadProperties("xcodeSigningId", AppPropertiesFile));
 		desiredCapabilities.setCapability("appium:bundleId", ReadProperties("bundleId", AppPropertiesFile));
 		IOsdriver = new IOSDriver<IOSElement>(new URL("http://0.0.0.0:4723/wd/hub"), desiredCapabilities);
-		IOsdriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		IOsdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
 
 }

@@ -24,8 +24,19 @@ public class ForgotPasswordStepdefinition extends ForgotPasswordMethods {
 
 	@Then("Reset link should be sent successfully")
 	public void reset_link_should_be_sent_successfully() throws Throwable {
+
 		resetPasswordToast("Reset link sent successfully");
-		
+
+	}
+
+	@Given("^User taps on the back to login button$")
+	public void user_taps_on_the_back_to_login_button() throws Throwable {
+		tapBackToLoginButton();
+	}
+
+	@Then("^User should be land on the login page$")
+	public void user_should_be_land_on_the_login_page() throws Throwable {
+		loginTab();
 	}
 
 }

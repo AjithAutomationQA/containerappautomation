@@ -28,22 +28,13 @@ public class LoginMethods extends ExcelRead {
 
 	public void loginErrorToast(String Text) throws Throwable {
 
-		try {
-
 			MobileElement toastElement = IOsdriver.findElement(By.xpath(
-					"//XCUIElementTypeStaticText[@name='Unable to verify your account. Please try login again.']"));
+					"//XCUIElementTypeStaticText[@name='Invalid credentials']"));
 
 			String toastText = toastElement.getText();
-			assertValues(toastText, Text);
+			assertTextValue(toastText, Text);
 			reportLog("Toast Message: " + toastText);
 			PrintValue("Toast Message: " + toastText);
-		} 
-		catch (Exception e) {
-			reportLog(e.getMessage());
-		}
-		finally {
-			clearCredentials();
-		}
 	}
 	
 	public void clearCredentials() throws Throwable {
@@ -53,10 +44,10 @@ public class LoginMethods extends ExcelRead {
 	}
 
 	public void enterTheCredentials() throws Throwable {
-
 		testData();
 		sendKey("Login.Email", LocatorPropertiesFile, validEmailID);
 		reportLog("Entered email: " + validEmailID);
+
 		sendKey("Login.Password", LocatorPropertiesFile, validpassword);
 		reportLog("Entered password: " + validpassword);
 
@@ -68,11 +59,30 @@ public class LoginMethods extends ExcelRead {
 
 	}
 
+
+	
+	public void tapNextButton() throws Throwable {
+
+		tapTheElement("Login.Next", LocatorPropertiesFile);
+		tapTheElement("Login.Next", LocatorPropertiesFile);
+		tapTheElement("Login.Next", LocatorPropertiesFile);
+		tapTheElement("Login.Next", LocatorPropertiesFile);
+		tapTheElement("Login.Getstarted", LocatorPropertiesFile);
+
+	}
+	
+	public void tapSkipButton() throws Throwable {
+
+		tapTheElement("Login.Skip", LocatorPropertiesFile);
+	}
+	
 	public void validateLogin() throws Throwable {
 
-		isElementDisplayed("Inbound", LocatorPropertiesFile);
+		
+		isElementDisplayed("Inbox", LocatorPropertiesFile);
 		PrintValue("Logged in successfully");
 
 	}
-
+	
+	
 }

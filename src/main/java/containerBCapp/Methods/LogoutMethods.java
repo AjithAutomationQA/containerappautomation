@@ -11,8 +11,12 @@ public class LogoutMethods extends CommonUtilities {
 
 	}
 
-	public void tapCancelButton() throws Throwable {
+	public void tapLogoutButton() throws Throwable {
 		tapTheElement("Menu.LogOut", LocatorPropertiesFile);
+
+	}
+	
+	public void tapCancelButton() throws Throwable {
 		tapTheElement("Menu.Cancel", LocatorPropertiesFile);
 
 	}
@@ -23,7 +27,7 @@ public class LogoutMethods extends CommonUtilities {
 
 	}
 
-	public void tapLogoutButton() throws Throwable {
+	public void tapYesLogoutButton() throws Throwable {
 
 		tapTheElement("Menu.LogOut", LocatorPropertiesFile);
 		tapTheElement("Menu.YesLogOut", LocatorPropertiesFile);
