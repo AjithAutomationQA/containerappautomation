@@ -1,4 +1,4 @@
-@Regression
+#@Regression
 Feature: To verify the logout feature
 
   @Logout

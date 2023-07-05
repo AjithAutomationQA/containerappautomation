@@ -14,7 +14,8 @@ public class InboxStepdefinition extends InboxMethods{
 
 	@Given("User swipes the message to archive from the inbox")
 	public void user_swipes_the_message_to_archive_from_the_inbox() throws Throwable {
-		archiveBySwipe();
+		archiveSwipeByText();
+		//archiveFirstreadMessage();
 		//messagescript();
 	}
 
@@ -26,14 +27,15 @@ public class InboxStepdefinition extends InboxMethods{
 
 	@Then("User should find that messsage in the archive tab")
 	public void user_should_find_that_messsage_in_the_archive_tab() throws Throwable {
-		validateInArchiveTab();
+
+		validateByTextInArchiveTab();
 	}
 
 
 	@Given("User longpress a message from the inbox")
 	public void user_longpress_a_message_from_the_inbox() throws Throwable {
 
-		longPressTheMessage();
+		longPressTheMessageByText();
 	}
 
 
@@ -50,12 +52,12 @@ public class InboxStepdefinition extends InboxMethods{
 	@When("User swipes the message to unarchive from the archive tab")
 	public void user_swipes_the_message_to_unarchive_from_the_archive_tab() throws Throwable {
 
-		unArchiveBySwipe();
+		unArchiveSwipeByText();
 	}
 
 	@Then("User should find that messsage in the inbox tab")
 	public void user_should_find_that_messsage_in_the_inbox_tab() throws Throwable {
-		validateInboxTab();
+		validateInboxTabByText();
 	}
 
 	////////////////////////////// Unarchive done /////////////////////////////////////	
@@ -73,13 +75,13 @@ public class InboxStepdefinition extends InboxMethods{
 	@Then("User should find that messsage in the trash tab")
 	public void user_should_find_that_messsage_in_the_trash_tab() throws Throwable {
 
-		validateInTrashTab();
+		validateInTrashTabByText();
 	}
 
 	@When("User swipes the message to restore from the trash tab")
 	public void user_swipes_the_message_to_restore_from_the_trash_tab() throws Throwable {
 
-		restoreBySwipe();
+		restoreSwipeByText();
 	}
 
 
@@ -122,7 +124,7 @@ public class InboxStepdefinition extends InboxMethods{
 
 	@Given("User verifies no of unread messages in inbox and unread filter are same")
 	public void user_verifies_no_of_unread_messages_in_inbox_and_unread_filter_are_same() throws Throwable {
-		
+
 		compareInboxAndUnread();
 
 	}
@@ -182,12 +184,24 @@ public class InboxStepdefinition extends InboxMethods{
 	@When("User swipes the first message to archive from the inbox")
 	public void user_swipes_the_first_message_to_archive_from_the_inbox() throws Throwable {
 
-		archiveFirstMessage();
+		archiveFirstUnreadMessage();
 
 	}
 
-	@Then("The message should not be displayed in the unread filter")
-	public void the_message_should_not_be_displayed_in_the_unread_filter() throws Throwable {
+	@Then("The archived message should not be displayed in the unread filter")
+	public void the_archived_message_should_not_be_displayed_in_the_unread_filter() throws Throwable {
 		archivenotinUnread();
+	}
+
+	//////////////////////////////mark as read trash /////////////////////////////////////
+	@Given("User longpress and send the message to the trash")
+	public void user_longpress_and_send_the_message_to_the_trash() throws Throwable {
+		longPressAndTrash();
+
+	}
+
+	@Then("The trashed message should not be displayed in the unread filter")
+	public void the_trashed_message_should_not_be_displayed_in_the_unread_filter() throws Throwable {
+		trashednotinUnread();
 	}
 }

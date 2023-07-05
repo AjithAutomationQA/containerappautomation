@@ -12,6 +12,21 @@ public class ForgotPasswordStepdefinition extends ForgotPasswordMethods {
 		tapForgotPassword();
 	}
 
+	@And("Enters the invalid email")
+	public void enters_the_invalid_email() throws Throwable {
+
+		enterInValidEmail();
+
+	}
+	
+	@Then("A toast with a waring message should be displayed")
+	public void a_toast_with_a_waring_message_should_be_displayed() throws Throwable {
+	   
+		ToastError("Invalid Email \n"
+				+ "Please enter valid email.");
+	}
+	
+	
 	@And("Enters the valid email")
 	public void enters_the_valid_email() throws Throwable {
 		enterValidEmail();
@@ -25,7 +40,7 @@ public class ForgotPasswordStepdefinition extends ForgotPasswordMethods {
 	@Then("Reset link should be sent successfully")
 	public void reset_link_should_be_sent_successfully() throws Throwable {
 
-		resetPasswordToast("Reset link sent successfully");
+		ToastError("Reset link sent successfully");
 
 	}
 

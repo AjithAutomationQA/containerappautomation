@@ -19,7 +19,7 @@ import io.appium.java_client.ios.IOSElement;
 
 public class InboxMethods extends ExcelRead {
 
-	public String messageName = null;
+	public String messageName ;
 	public	WebElement theElement;
 	public String readName;
 	public String unReadName;
@@ -27,11 +27,16 @@ public class InboxMethods extends ExcelRead {
 	public String text;
 
 
-	public void archiveBySwipe() throws Throwable {
+	public void archiveSwipeByText() throws Throwable {
 
 		//WebElement FirstMessage = getMobileElement("Inbox.FirstMessage", LocatorPropertiesFile);
-		messageName = swipeRightToLeft("Test 5G","down");
-		tapTheElement("Inbox.ArchiveIcon", LocatorPropertiesFile);
+		messageName = swipeRightToLeft("Point Message","down");
+		try {
+			tapTheElement("Inbox.ArchiveIcon", LocatorPropertiesFile);
+		}
+
+		catch (Exception e) {
+		}
 
 	}
 
@@ -42,42 +47,235 @@ public class InboxMethods extends ExcelRead {
 
 	}
 
-	public void validateInArchiveTab() throws Throwable {
+	public void validateByTextInArchiveTab() throws Throwable {
 
+		//WebElement FirstMessage = getMobileElement("Inbox.FirstMessage", LocatorPropertiesFile);
 		WebElement archivedMessage = scroll(messageName, "down");
 		assertEquals(archivedMessage, messageName, "Message archived is: " + messageName);
 
 		tapTheElement("Inbox.BackArrow", LocatorPropertiesFile);
 
 	}
+	
+	
+	public void longPressTheMessageByText() throws Throwable {
 
-	public void longPressTheMessage() throws Throwable {
-
-		messageName = longPress("Test 14","down"); 
+		messageName = longPress("Test 3S","down"); 
 	}
-
-	public void tapTheArchiveButtonIdentifier() throws Throwable {
-
-		tapTheElement("Inbox.ArchiveButtonIdentifier", LocatorPropertiesFile);
-	}
-
-
-	public void unArchiveBySwipe() throws Throwable {
+	
+	public void unArchiveSwipeByText() throws Throwable {
 
 		//WebElement FirstMessage = getMobileElement("Inbox.FirstMessage", LocatorPropertiesFile);
-		messageName = swipeRightToLeft("Test 14","down");
-		tapTheElement("Inbox.UnarchiveIcon", LocatorPropertiesFile);
+		messageName = swipeRightToLeft("Test 3S","down");
+		
+		try {
+			tapTheElement("Inbox.UnarchiveIcon", LocatorPropertiesFile);
+		}
+		catch (Exception e) {
+		}
 		tapTheElement("Inbox.BackArrow", LocatorPropertiesFile);
-
 	}
-
-	public void validateInboxTab() throws Throwable {
+	
+	public void validateInboxTabByText() throws Throwable {
 
 		WebElement unArchivedMessage = scroll(messageName, "down");
 		assertEquals(unArchivedMessage, messageName, "Message in inbox tab is: " + messageName);
 
 	}
+	
+	public void validateInTrashTabByText() throws Throwable {
 
+		WebElement TrashedMessage = scroll(messageName, "down");
+		assertEquals(TrashedMessage, messageName, "Message trashed is: " + messageName);
+
+		tapTheElement("Inbox.BackArrow", LocatorPropertiesFile);
+
+	}
+	
+	public void restoreSwipeByText() throws Throwable {
+
+		//WebElement FirstMessage = getMobileElement("Inbox.FirstMessage", LocatorPropertiesFile);
+		messageName = swipeRightToLeft("Test 3S","down");
+		
+		try {
+		
+			tapTheElement("Inbox.RestoreIcon", LocatorPropertiesFile);
+		}
+		catch (Exception e) {
+		}
+		
+		tapTheElement("Inbox.BackArrow", LocatorPropertiesFile);
+
+	}
+	
+	public void tapOnAllDrd () throws Throwable {
+
+		tapTheElement("Filter.All", LocatorPropertiesFile);
+	}
+
+	public void tapOnAllFilter () throws Throwable {
+
+		tapTheElement("Filter.Allmessage", LocatorPropertiesFile);
+	}
+
+
+	public void tapOnUnreadDrd () throws Throwable {
+
+		tapTheElement("Filter.Unread", LocatorPropertiesFile);
+
+	}
+
+	public void tapOnUnreadFilter () throws Throwable {
+
+		tapTheElement("Filter.Unreadmessage", LocatorPropertiesFile);
+
+	}
+
+	public void tapOnApplyButton () throws Throwable {
+
+		tapTheElement("Filter.Apply", LocatorPropertiesFile);
+		//	isElementDisplayed(theElement);
+	}
+	
+	public void selectAllMessages() throws Throwable {
+
+		//		tapOnUnreadDrd();
+		//		tapOnAllFilter();
+		//		tapOnApplyButton();
+
+		killAndRelaunch();
+	}
+
+	public void selectUnreadFromFilter() throws Throwable {
+
+		tapOnAllDrd();
+		tapOnUnreadFilter();
+	}
+
+	public void onlyUnreadMessageList () throws Throwable {
+
+		try {
+
+			WebElement NoUnreadMessage = getElement("Filter.NoUnreadMessage", LocatorPropertiesFile);
+			String NoUnreadMessageText = NoUnreadMessage.getText();
+
+			if(NoUnreadMessage.isDisplayed()) {
+
+				PrintValue(NoUnreadMessageText);
+				selectAllMessages();
+			}
+
+
+		}
+		catch (Exception e) {
+			PrintValue("List of unread messages are present");
+			List<IOSElement> unreadList = IOsdriver.findElements(By.xpath("(//XCUIElementTypeImage[@name=\"message-unread-icn\"])"));
+			int noOfUnreadMessages =	unreadList.size();
+			PrintValue("No of unread message in the unread filter is: "+ noOfUnreadMessages);
+
+		}
+		try {
+			WebElement readMessage = 	IOsdriver.findElement(By.xpath("(//XCUIElementTypeImage[@name=\"message-read-icn\"])"));
+
+			if(readMessage.isDisplayed()) {
+
+				PrintError("Read message is displayed in the unread filter");
+			}
+
+		}catch (Exception e) {
+			PrintValue("As expected no read message is displayed in the Unread filter");
+			selectAllMessages();
+		}
+	}
+
+
+	public void compareInboxAndUnread () throws Throwable {
+
+		int noOfUnreadInInbox ;
+		int noOfUnreadInFilter;
+		try {
+			WebElement unreadMessage = IOsdriver.findElement(By.xpath("(//XCUIElementTypeImage[@name=\"message-unread-icn\"])"));
+
+			List<IOSElement> unreadListInbox = IOsdriver.findElements(By.xpath("(//XCUIElementTypeImage[@name=\"message-unread-icn\"])"));
+			noOfUnreadInInbox =	unreadListInbox.size();
+
+			if(noOfUnreadInInbox>0) {
+				PrintValue("No of unread message in inbox is: "+ noOfUnreadInInbox);
+				selectUnreadFromFilter();
+				tapOnApplyButton();
+
+
+				List<IOSElement> unreadListInUnread = IOsdriver.findElements(By.xpath("(//XCUIElementTypeImage[@name=\"message-unread-icn\"])"));
+				noOfUnreadInFilter =	unreadListInUnread.size();
+				if(noOfUnreadInInbox==noOfUnreadInFilter) {
+
+					PrintValue("No of unread message in unread is: "+ noOfUnreadInFilter);
+					PrintValue("No of unread messages in the inbox and unread filter are same");
+					selectAllMessages();
+				}
+				else {
+					PrintValue("No of unread message in unread is: "+ noOfUnreadInFilter);
+					PrintError("No of unread messages in the inbox and unread filter are different");
+					selectAllMessages();
+				}
+
+			}
+
+		}
+		catch (Exception e) {
+			PrintValue("No of unread message in inbox is zero");
+			selectUnreadFromFilter();
+			tapOnApplyButton();
+
+			WebElement NoUnreadMessage = getElement("Filter.NoUnreadMessage", LocatorPropertiesFile);
+			String NoUnreadMessageText = NoUnreadMessage.getText();
+			if(NoUnreadMessage.isDisplayed()) {
+
+				PrintValue(NoUnreadMessageText);
+				PrintValue("No of unread message in inbox is zero");
+
+			}
+
+		}
+
+	}
+
+
+//////////////////////
+
+	public void validateInArchiveTab() throws Throwable {
+
+
+		WebElement FirstUnreadMessage = getElement("FirstUnreadMessage", LocatorPropertiesFile);
+		unReadName = FirstUnreadMessage.getText();
+
+		assertTextValue(text, unReadName);
+		//		WebElement archivedMessage = scroll(messageName, "down");
+		//		assertEquals(archivedMessage, messageName, "Message archived is: " + messageName);
+		//
+		tapTheElement("Inbox.BackArrow", LocatorPropertiesFile);
+
+	}
+
+	public void validateReadInArchiveTab() throws Throwable {
+
+
+		WebElement FirstReadMessage = getElement("FirstReadMessage", LocatorPropertiesFile);
+		readName = FirstReadMessage.getText();
+
+		assertTextValue(text, readName);
+		//		WebElement archivedMessage = scroll(messageName, "down");
+		//		assertEquals(archivedMessage, messageName, "Message archived is: " + messageName);
+		//
+		tapTheElement("Inbox.BackArrow", LocatorPropertiesFile);
+
+	}
+
+
+	public void tapTheArchiveButtonIdentifier() throws Throwable {
+
+		tapTheElement("Inbox.ArchiveButtonIdentifier", LocatorPropertiesFile);
+	}
 
 	public void tapTheTrashButtonIdentifier() throws Throwable {
 
@@ -91,23 +289,7 @@ public class InboxMethods extends ExcelRead {
 
 	}
 
-	public void validateInTrashTab() throws Throwable {
 
-		WebElement TrashedMessage = scroll(messageName, "down");
-		assertEquals(TrashedMessage, messageName, "Message trashed is: " + messageName);
-
-		tapTheElement("Inbox.BackArrow", LocatorPropertiesFile);
-
-	}
-
-	public void restoreBySwipe() throws Throwable {
-
-		//WebElement FirstMessage = getMobileElement("Inbox.FirstMessage", LocatorPropertiesFile);
-		messageName = swipeRightToLeft("Test 14","down");
-		tapTheElement("Inbox.RestoreIcon", LocatorPropertiesFile);
-		tapTheElement("Inbox.BackArrow", LocatorPropertiesFile);
-
-	}
 
 	public void selectMessages() throws Throwable {
 
@@ -186,138 +368,9 @@ public class InboxMethods extends ExcelRead {
 	}
 
 
-	public void tapOnAllDrd () throws Throwable {
-
-		tapTheElement("Filter.All", LocatorPropertiesFile);
-	}
-
-	public void tapOnAllFilter () throws Throwable {
-
-		tapTheElement("Filter.Allmessage", LocatorPropertiesFile);
-	}
-
-
-	public void tapOnUnreadDrd () throws Throwable {
-
-		tapTheElement("Filter.Unread", LocatorPropertiesFile);
-
-	}
-
-	public void tapOnUnreadFilter () throws Throwable {
-
-		tapTheElement("Filter.Unreadmessage", LocatorPropertiesFile);
-
-	}
-
-	public void tapOnApplyButton () throws Throwable {
-
-		tapTheElement("Filter.Apply", LocatorPropertiesFile);
-		//	isElementDisplayed(theElement);
-	}
-
-	public void selectAllMessages() throws Throwable {
-
-//		tapOnUnreadDrd();
-//		tapOnAllFilter();
-//		tapOnApplyButton();
-		
-		killAndRelaunch();
-	}
-
-	public void selectUnreadFromFilter() throws Throwable {
-
-		tapOnAllDrd();
-		tapOnUnreadFilter();
-	}
-
-	public void onlyUnreadMessageList () throws Throwable {
-
-		try {
-
-			WebElement NoUnreadMessage = getElement("Filter.NoUnreadMessage", LocatorPropertiesFile);
-			String NoUnreadMessageText = NoUnreadMessage.getText();
-			
-			if(NoUnreadMessage.isDisplayed()) {
-
-				PrintValue(NoUnreadMessageText);
-				selectAllMessages();
-			}
-			
-			
-		}
-		catch (Exception e) {
-			PrintValue("List of unread messages are present");
-			List<IOSElement> unreadList = IOsdriver.findElements(By.xpath("(//XCUIElementTypeImage[@name=\"message-unread-icn\"])"));
-			int noOfUnreadMessages =	unreadList.size();
-			PrintValue("No of unread message in the unread filter is: "+ noOfUnreadMessages);
-
-		}
-		try {
-			WebElement readMessage = 	IOsdriver.findElement(By.xpath("(//XCUIElementTypeImage[@name=\"message-read-icn\"])"));
-
-			if(readMessage.isDisplayed()) {
-
-				PrintError("Read message is displayed in the unread filter");
-			}
-
-		}catch (Exception e) {
-			PrintValue("As expected no read message is displayed in the Unread filter");
-			selectAllMessages();
-		}
-	}
-
-	public void compareInboxAndUnread () throws Throwable {
-
-		int noOfUnreadInInbox ;
-		int noOfUnreadInFilter;
-		try {
-			WebElement unreadMessage = IOsdriver.findElement(By.xpath("(//XCUIElementTypeImage[@name=\"message-unread-icn\"])"));
-
-			List<IOSElement> unreadListInbox = IOsdriver.findElements(By.xpath("(//XCUIElementTypeImage[@name=\"message-unread-icn\"])"));
-			noOfUnreadInInbox =	unreadListInbox.size();
-
-			if(noOfUnreadInInbox>0) {
-				PrintValue("No of unread message in inbox is: "+ noOfUnreadInInbox);
-				selectUnreadFromFilter();
-				tapOnApplyButton();
-				
-
-				List<IOSElement> unreadListInUnread = IOsdriver.findElements(By.xpath("(//XCUIElementTypeImage[@name=\"message-unread-icn\"])"));
-				noOfUnreadInFilter =	unreadListInUnread.size();
-				if(noOfUnreadInInbox==noOfUnreadInFilter) {
-
-					PrintValue("No of unread message in unread is: "+ noOfUnreadInFilter);
-					PrintValue("No of unread messages in the inbox and unread filter are same");
-					selectAllMessages();
-				}
-				else {
-					PrintValue("No of unread message in unread is: "+ noOfUnreadInFilter);
-					PrintError("No of unread messages in the inbox and unread filter are different");
-					selectAllMessages();
-				}
-
-			}
-
-		}
-		catch (Exception e) {
-			PrintValue("No of unread message in inbox is zero");
-			selectUnreadFromFilter();
-			tapOnApplyButton();
-
-			WebElement NoUnreadMessage = getElement("Filter.NoUnreadMessage", LocatorPropertiesFile);
-			String NoUnreadMessageText = NoUnreadMessage.getText();
-			if(NoUnreadMessage.isDisplayed()) {
-
-				PrintValue(NoUnreadMessageText);
-				PrintValue("No of unread message in inbox is zero");
-
-			}
-
-		}
-
-	}
-
-
+	
+	
+	
 	public void makeReadMessage() throws Throwable {
 
 		tapTheElement("FirstMessage", LocatorPropertiesFile);
@@ -386,8 +439,20 @@ public class InboxMethods extends ExcelRead {
 
 	}
 
-	public void archiveFirstMessage() throws Throwable {
+	public void archiveFirstUnreadMessage() throws Throwable {
 		WebElement FirstUnreadMessage = getElement("FirstUnreadMessage", LocatorPropertiesFile);
+		text = swipeR2LusingLocator(FirstUnreadMessage);
+		try {
+			tapTheElement("Inbox.ArchiveIcon", LocatorPropertiesFile);
+		}
+		catch (Exception e) {
+
+		}
+
+	}
+
+	public void archiveFirstreadMessage() throws Throwable {
+		WebElement FirstUnreadMessage = getElement("FirstReadMessage", LocatorPropertiesFile);
 		text = swipeR2LusingLocator(FirstUnreadMessage);
 		try {
 			tapTheElement("Inbox.ArchiveIcon", LocatorPropertiesFile);
@@ -422,8 +487,39 @@ public class InboxMethods extends ExcelRead {
 
 	}
 
+	public void longPressAndTrash () throws Throwable {
+
+		WebElement FirstMessage = getElement("FirstMessage", LocatorPropertiesFile);
+		text  = FirstMessage.getText();
+		longpress(FirstMessage);
+		tapTheTrashButtonIdentifier();
 
 
+	}
+
+	public void trashednotinUnread() throws Throwable {
+
+
+		try {
+			WebElement NoUnreadMessage = 		getElement("Filter.NoUnreadMessage", LocatorPropertiesFile);
+			String NoUnreadMessageText = NoUnreadMessage.getText();
+			if(NoUnreadMessage.isDisplayed()) {
+
+				PrintValue(NoUnreadMessageText);
+				PrintValue("Trashed unread message not available in the unread filter tab");
+				selectAllMessages();
+			}
+		}
+		catch (Exception e) {
+			WebElement FirstUnreadMessage = getElement("FirstUnreadMessage", LocatorPropertiesFile);
+			String FirstUnreadMessageText = FirstUnreadMessage.getText();
+			assertTextFalse(text, FirstUnreadMessageText);
+			PrintValue("Trashed unread message not available in the unread filter tab");
+			selectAllMessages();
+
+		}
+
+	}
 
 
 

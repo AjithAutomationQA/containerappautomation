@@ -36,7 +36,7 @@ public class CommonUtilities {
 	public static Properties Prop;
 	public static String Locator;
 	public static File FileLocation;
-	public static IOSDriver<IOSElement> IOsdriver;
+	public static IOSDriver<IOSElement>IOsdriver;
 
 	public static String LocatorPropertiesFile = "./src/test/resources/Properties/Xpath.properties";
 	public static String AppPropertiesFile = "./src/test/resources/Properties/App.properties";
@@ -291,16 +291,16 @@ public class CommonUtilities {
 	public String longPress(String Name, String Direction) {
 
 		// Find the current element
-		WebElement currentElement = IOsdriver.findElement(By.xpath("//your_current_locator"));
-
-		// Find the preceding sibling element
-		MobileElement precedingElement = null;
-		List<IOSElement> precedingElements = IOsdriver.findElements(By.xpath("//preceding-sibling::*"));
-		for (MobileElement element : precedingElements) {
-			if (element.getLocation().getY() < currentElement.getLocation().getY()) {
-				precedingElement = element;
-			}
-		}
+//		WebElement currentElement = IOsdriver.findElement(By.xpath("//your_current_locator"));
+//
+//		// Find the preceding sibling element
+//		MobileElement precedingElement = null;
+//		List<IOSElement> precedingElements = IOsdriver.findElements(By.xpath("//preceding-sibling::*"));
+//		for (MobileElement element : precedingElements) {
+//			if (element.getLocation().getY() < currentElement.getLocation().getY()) {
+//				precedingElement = element;
+//			}
+//		}
 
 
 		String flag = "False";
