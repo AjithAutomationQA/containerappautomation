@@ -6,7 +6,7 @@ import io.cucumber.testng.CucumberOptions;
 @CucumberOptions(plugin = {"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:", 
 "rerun:target/FailedScenarios.txt"},
 
-tags = "@Login",
+tags = "@Regression",
 
 features = {"FeatureFiles"},  
 glue = {"containerBCappStepDefinition", "containerBCappHooks"}, dryRun = false
