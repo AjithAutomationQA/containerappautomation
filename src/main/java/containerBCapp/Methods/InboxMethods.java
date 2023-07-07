@@ -20,12 +20,56 @@ import io.appium.java_client.ios.IOSElement;
 public class InboxMethods extends ExcelRead {
 
 	public String messageName ;
-	public	WebElement theElement;
 	public String readName;
 	public String unReadName;
 	public String name1;
 	public String text;
 
+
+	public void tapOnTheMessage() throws Throwable {
+
+		makeReadMessage();
+		tapTheElement("FirstReadMessage", LocatorPropertiesFile);
+	}
+
+	public void verifyMessageDetails() throws Throwable {
+
+
+		WebElement findElementByName = findElementByName(readName);
+		String text2 = findElementByName.getText();
+		assertTextValue(readName, text2);
+
+		WebElement Phone_button = getElement("Inbox.Phone_button", LocatorPropertiesFile);
+		isElementDisplayed(Phone_button);
+
+		WebElement Message_button = getElement("Inbox.Message_button", LocatorPropertiesFile);
+		isElementDisplayed(Message_button);
+
+		try {
+			WebElement Activity_button = getElement("Inbox.Activity_button", LocatorPropertiesFile);
+
+
+			if(Activity_button.isDisplayed()) {
+				Activity_button.click();
+				WebElement All_Activities = getElement("Inbox.All_Activities", LocatorPropertiesFile);
+
+				if(All_Activities.isDisplayed()) {
+					PrintValue("Activities available");
+
+				}
+			}
+		}
+		catch (Exception e) {
+			PrintValue("Activities not available");
+		}
+
+		WebElement AddNote_button = getElement("Inbox.AddNote_button", LocatorPropertiesFile);
+		isElementDisplayed(AddNote_button);
+
+		WebElement Share_button = getElement("Inbox.Share_button", LocatorPropertiesFile);
+		isElementDisplayed(Share_button);
+
+	}
 
 	public void archiveSwipeByText() throws Throwable {
 
@@ -56,18 +100,18 @@ public class InboxMethods extends ExcelRead {
 		tapTheElement("Inbox.BackArrow", LocatorPropertiesFile);
 
 	}
-	
-	
+
+
 	public void longPressTheMessageByText() throws Throwable {
 
 		messageName = longPress("Test 3S","down"); 
 	}
-	
+
 	public void unArchiveSwipeByText() throws Throwable {
 
 		//WebElement FirstMessage = getMobileElement("Inbox.FirstMessage", LocatorPropertiesFile);
 		messageName = swipeRightToLeft("Test 3S","down");
-		
+
 		try {
 			tapTheElement("Inbox.UnarchiveIcon", LocatorPropertiesFile);
 		}
@@ -75,14 +119,14 @@ public class InboxMethods extends ExcelRead {
 		}
 		tapTheElement("Inbox.BackArrow", LocatorPropertiesFile);
 	}
-	
+
 	public void validateInboxTabByText() throws Throwable {
 
 		WebElement unArchivedMessage = scroll(messageName, "down");
 		assertEquals(unArchivedMessage, messageName, "Message in inbox tab is: " + messageName);
 
 	}
-	
+
 	public void validateInTrashTabByText() throws Throwable {
 
 		WebElement TrashedMessage = scroll(messageName, "down");
@@ -91,23 +135,23 @@ public class InboxMethods extends ExcelRead {
 		tapTheElement("Inbox.BackArrow", LocatorPropertiesFile);
 
 	}
-	
+
 	public void restoreSwipeByText() throws Throwable {
 
 		//WebElement FirstMessage = getMobileElement("Inbox.FirstMessage", LocatorPropertiesFile);
 		messageName = swipeRightToLeft("Test 3S","down");
-		
+
 		try {
-		
+
 			tapTheElement("Inbox.RestoreIcon", LocatorPropertiesFile);
 		}
 		catch (Exception e) {
 		}
-		
+
 		tapTheElement("Inbox.BackArrow", LocatorPropertiesFile);
 
 	}
-	
+
 	public void tapOnAllDrd () throws Throwable {
 
 		tapTheElement("Filter.All", LocatorPropertiesFile);
@@ -136,7 +180,7 @@ public class InboxMethods extends ExcelRead {
 		tapTheElement("Filter.Apply", LocatorPropertiesFile);
 		//	isElementDisplayed(theElement);
 	}
-	
+
 	public void selectAllMessages() throws Throwable {
 
 		//		tapOnUnreadDrd();
@@ -241,7 +285,7 @@ public class InboxMethods extends ExcelRead {
 	}
 
 
-//////////////////////
+	//////////////////////
 
 	public void validateInArchiveTab() throws Throwable {
 
@@ -294,53 +338,26 @@ public class InboxMethods extends ExcelRead {
 	public void selectMessages() throws Throwable {
 
 
+
 		for(int i=1; i<=6; i++) {
 
-			WebElement iosElementss = IOsdriver.findElement(By.xpath("(//XCUIElementTypeStaticText[@name=\"message-title-read-lab”])"+i+"]"));
+			String unSelectedMessage  = "(//XCUIElementTypeOther[@name=\"message-unselected-cel\"])[1]";
+			WebElement iosElementss = IOsdriver.findElement(By.xpath(unSelectedMessage));
 
-			//(//XCUIElementTypeOther[3]/XCUIElementTypeOther)
-			//	for (IOSElement iosElement : mess) {
 
 			TouchAction action = new TouchAction(IOsdriver);
 			action.longPress(longPressOptions().withElement(element(iosElementss)).withDuration(Duration.ofMillis(10000)))
 			.release().perform();
-
-			//}
 		}
 	}
 
 	public void validateNoOfSelectedMessage() throws Throwable {
 
 		WebElement Message = getMobileElement("Inbox.NoOfSelectedMessages", LocatorPropertiesFile);
-		assertEquals( Message, "6", "Allowed to select upto 6 messages only");
+		assertEquals( Message, "5", "Allowed to select upto 5 messages only");
+		tapTheElement("Inbox.BackArrow", LocatorPropertiesFile);
 
 	}
-
-
-	public void messagescript () throws Throwable {
-
-		WebElement messageName = 	IOsdriver.findElementByXPath("(//XCUIElementTypeStaticText[@name=\"message-title-read-lab\"])[1]");
-
-
-		if(messageName.isDisplayed()) {
-			String name = 	messageName.getText();
-			PrintValue(name);
-			WebElement read = 	IOsdriver.findElementByXPath("(//XCUIElementTypeImage[@name=\"message-read-icn\"])[1]");
-			WebElement unread = 	IOsdriver.findElementByXPath("(//XCUIElementTypeImage[@name=\"message-unread-icn\"])[1]");
-
-			if(read.isDisplayed()) {
-
-				PrintValue("is read");
-			}
-
-			else if (unread.isDisplayed()) {
-				PrintValue("is unread");
-			}
-
-		}
-
-	}
-
 
 	public void selected () throws Throwable {
 
@@ -368,9 +385,9 @@ public class InboxMethods extends ExcelRead {
 	}
 
 
-	
-	
-	
+
+
+
 	public void makeReadMessage() throws Throwable {
 
 		tapTheElement("FirstMessage", LocatorPropertiesFile);

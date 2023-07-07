@@ -201,6 +201,18 @@ public class CommonUtilities {
 		}
 	}
 
+	public WebElement findElementByName(String Name) {
+		WebElement locator = null ;
+		try {
+			locator = IOsdriver
+					.findElement(MobileBy.iOSClassChain(("**/XCUIElementTypeStaticText[`label == \"" + Name + "\"`]")));
+
+		} catch (Exception e) {
+		}
+		return locator;
+	}
+
+
 	public String swipeRightToLeft(String Name, String Direction) throws Throwable {
 
 		String flag = "False";
@@ -291,16 +303,16 @@ public class CommonUtilities {
 	public String longPress(String Name, String Direction) {
 
 		// Find the current element
-//		WebElement currentElement = IOsdriver.findElement(By.xpath("//your_current_locator"));
-//
-//		// Find the preceding sibling element
-//		MobileElement precedingElement = null;
-//		List<IOSElement> precedingElements = IOsdriver.findElements(By.xpath("//preceding-sibling::*"));
-//		for (MobileElement element : precedingElements) {
-//			if (element.getLocation().getY() < currentElement.getLocation().getY()) {
-//				precedingElement = element;
-//			}
-//		}
+		//		WebElement currentElement = IOsdriver.findElement(By.xpath("//your_current_locator"));
+		//
+		//		// Find the preceding sibling element
+		//		MobileElement precedingElement = null;
+		//		List<IOSElement> precedingElements = IOsdriver.findElements(By.xpath("//preceding-sibling::*"));
+		//		for (MobileElement element : precedingElements) {
+		//			if (element.getLocation().getY() < currentElement.getLocation().getY()) {
+		//				precedingElement = element;
+		//			}
+		//		}
 
 
 		String flag = "False";

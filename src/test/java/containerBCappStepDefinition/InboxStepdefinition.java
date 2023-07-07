@@ -1,7 +1,5 @@
 package containerBCappStepDefinition;
 
-import org.testng.annotations.Test;
-
 import containerBCapp.Methods.InboxMethods;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -10,6 +8,23 @@ import io.cucumber.java.en.When;
 
 public class InboxStepdefinition extends InboxMethods{
 
+
+	@Given("User taps on a message")
+	public void user_taps_on_a_message() throws Throwable {
+
+
+		tapOnTheMessage();
+
+
+	}
+
+
+	@Then("User should see the message detailed view")
+	public void user_should_see_the_message_detailed_view() throws Throwable {
+
+		verifyMessageDetails()	;
+
+	}
 
 
 	@Given("User swipes the message to archive from the inbox")
@@ -87,12 +102,12 @@ public class InboxStepdefinition extends InboxMethods{
 
 	////////////////////////////// trash and restore done /////////////////////////////////////	
 
-	@Given("User tries to select more than 6 no of messages in the inbox tab")
-	public void user_tries_to_select_more_than_6_no_of_messages_in_the_inbox_tab() throws Throwable {
+	@Given("User tries to select more than 5 no of messages in the inbox tab")
+	public void user_tries_to_select_more_than_5_no_of_messages_in_the_inbox_tab() throws Throwable {
 		selectMessages();
 	}
 
-	@Then("User should be allowed to select only 6 messages")
+	@Then("User should be allowed to select only 5 messages")
 	public void user_should_be_allowed_to_select_only_6_messages() throws Throwable {
 		validateNoOfSelectedMessage();
 	}

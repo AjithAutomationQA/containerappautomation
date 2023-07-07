@@ -1,6 +1,11 @@
 @Regression
 Feature: To verify the inbox feature
 
+  @Inbox @test
+  Scenario: To verify user can tap and view the message details
+    Given User taps on a message
+    Then User should see the message detailed view
+
   @Inbox
   Scenario: To swipe and archive a message from inbox
     Given User swipes the message to archive from the inbox
@@ -33,9 +38,7 @@ Feature: To verify the inbox feature
     When User swipes the message to restore from the trash tab
     Then User should find that messsage in the inbox tab
 
- 
-
-  #@Inbox
-  #Scenario: To longpress and select 6 messages
-    #Given User tries to select more than 6 no of messages in the inbox tab
-    #Then User should be allowed to select only 6 messages
+  @Inbox
+  Scenario: To verify user can longpress and select only 5 messages
+    Given User tries to select more than 5 no of messages in the inbox tab
+    Then User should be allowed to select only 5 messages
