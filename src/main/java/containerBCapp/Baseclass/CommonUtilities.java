@@ -116,6 +116,7 @@ public class CommonUtilities {
 		Assert.assertEquals(true, element.isDisplayed());
 		return element;
 	}
+	
 
 	public WebElement isElementDisplayed(WebElement element) throws Throwable {
 

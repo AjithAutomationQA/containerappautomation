@@ -19,6 +19,8 @@ public class ExcelRead extends CommonUtilities {
 	public String inValidEmailID;
 	public String inValidpassword;
 	public String inValidEmailFormat;
+	public String feedBack;
+	public String goodOrBadFeedback;
 	
 	public String readExcelFile(int rownum, int cellnum, String SheetName) throws Throwable {
 		File FileLocation = new File(ExcelFile);
@@ -38,6 +40,8 @@ public class ExcelRead extends CommonUtilities {
 	 inValidEmailID =	readExcelFile(1, 2, LoginCredentials);
 	 inValidpassword =	readExcelFile(1, 3, LoginCredentials);
 	 inValidEmailFormat =	readExcelFile(1, 4, LoginCredentials);
+	 feedBack =	readExcelFile(1, 5, LoginCredentials);
+	 goodOrBadFeedback =	readExcelFile(1, 6, LoginCredentials);
 	 
 	}
 

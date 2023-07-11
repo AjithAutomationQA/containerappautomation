@@ -12,9 +12,7 @@ public class InboxStepdefinition extends InboxMethods{
 	@Given("User taps on a message")
 	public void user_taps_on_a_message() throws Throwable {
 
-
 		tapOnTheMessage();
-
 
 	}
 
@@ -60,9 +58,59 @@ public class InboxStepdefinition extends InboxMethods{
 		tapTheArchiveButtonIdentifier();
 	}
 
-	////////////////////////////// Archive done /////////////////////////////////////
+	@Given("Tap on the dropdown button")
+	public void tap_on_the_dropdown_button() throws Throwable {
 
+		tapDropdown_option_button();
 
+	}
+
+	@And("Tap on the archive button from the bottom sheet")
+	public void tap_on_the_archive_button_from_the_bottom_sheet() throws Throwable {
+
+		tapMove_To_Archive();
+	}
+
+	@Then("The message should be sent to archive tab")
+	public void the_message_should_be_sent_to_archive_tab() throws Throwable {
+
+		toastMessage("Message moved to Archive");
+	}
+	
+//////////////////////////////Archive done /////////////////////////////////////
+	
+	@Given("Tap on the feedback button from the bottom sheet")
+	public void tap_on_the_feedback_button_from_the_bottom_sheet() throws Throwable {
+	    
+		tapGive_Feedback();
+	}
+	
+	@And("Enters the feedback in the input field")
+	public void enters_the_feedback_in_the_input_field() throws Throwable {
+		
+		enterFeedback();
+		
+	}
+	
+	@When("Taps on the send button")
+	public void taps_on_the_send_button() throws Throwable {
+		
+		tapSendEnabled();
+	}
+	
+	@Then("The feedback should be sent successfully")
+	public void the_feedback_should_be_sent_successfully() throws Throwable {
+		
+		toastMessage("Feedback added successfully");
+	}
+	
+	@Then("The feedback should not be visible")
+	public void the_feedback_should_not_be_visible() throws Throwable {
+		
+		checkForFeedback();
+	}
+
+//////////////////////////////feedback done /////////////////////////////////////
 
 	@When("User swipes the message to unarchive from the archive tab")
 	public void user_swipes_the_message_to_unarchive_from_the_archive_tab() throws Throwable {
@@ -84,7 +132,21 @@ public class InboxStepdefinition extends InboxMethods{
 
 	@And("User goes to trash tab")
 	public void user_goes_to_trash_tab() throws Throwable {
+		
 		tapTrashFromMenu();
+	}
+
+	@Given("Tap on the trash button from the bottom sheet")
+	public void tap_on_the_trash_button_from_the_bottom_sheet() throws Throwable {
+
+		tapMove_To_Trash();
+		
+		}
+
+	@Then("The message should be sent to trash tab")
+	public void the_message_should_be_sent_to_trash_tab() throws Throwable {
+
+		toastMessage("Message moved to Trash");
 	}
 
 	@Then("User should find that messsage in the trash tab")

@@ -2,6 +2,7 @@ package containerBCapp.Methods;
 
 import static io.appium.java_client.touch.LongPressOptions.longPressOptions;
 import static io.appium.java_client.touch.offset.ElementOption.element;
+import static org.testng.Assert.fail;
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -13,6 +14,8 @@ import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 import containerBCapp.ExcelRead.ExcelRead;
+import io.appium.java_client.MobileBy;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSElement;
@@ -26,10 +29,12 @@ public class InboxMethods extends ExcelRead {
 	public String text;
 
 
-	public void tapOnTheMessage() throws Throwable {
+	public String tapOnTheMessage() throws Throwable {
 
 		makeReadMessage();
-		tapTheElement("FirstReadMessage", LocatorPropertiesFile);
+		WebElement message =	tapTheElement("FirstReadMessage", LocatorPropertiesFile);
+		messageName = message.getText();
+		return messageName;
 	}
 
 	public void verifyMessageDetails() throws Throwable {
@@ -89,6 +94,84 @@ public class InboxMethods extends ExcelRead {
 		tapTheElement("Inbox.ThreeDotButton", LocatorPropertiesFile);
 		tapTheElement("Inbox.Archive", LocatorPropertiesFile);
 
+	}
+
+	public void tapDropdown_option_button() throws Throwable {
+
+		tapTheElement("Inbox.Dropdown_option_button", LocatorPropertiesFile);
+
+	}
+
+	public void tapMove_To_Archive() throws Throwable {
+
+		tapTheElement("Inbox.Move_To_Archive", LocatorPropertiesFile);
+
+	}
+
+	public void tapMove_To_Trash() throws Throwable {
+
+		tapTheElement("Inbox.Move_To_Trash", LocatorPropertiesFile);
+
+	}
+
+	public void tapGive_Feedback() throws Throwable {
+
+		tapTheElement("Inbox.Give_Feedback", LocatorPropertiesFile);
+
+	}
+
+	public void enterFeedback() throws Throwable {
+
+		testData();
+		isElementDisplayed("Inbox.SendDisabled", LocatorPropertiesFile);
+		sendKey("Inbox.Enter_Feedback", LocatorPropertiesFile, feedBack);
+
+		String feedback = goodOrBadFeedback;
+		if(feedback.equalsIgnoreCase("Good")) {
+			tapTheElement("Inbox.GoodFeedback", LocatorPropertiesFile);
+			isElementDisplayed("Inbox.Good_Feedback_Active", LocatorPropertiesFile);
+		}
+		else if(feedback.equalsIgnoreCase("Bad")) {
+			tapTheElement("Inbox.BadFeedback", LocatorPropertiesFile);
+			isElementDisplayed("Inbox.Bad_Feedback_Active", LocatorPropertiesFile);
+		}
+
+	}
+
+	public void tapSendEnabled() throws Throwable {
+
+		tapTheElement("Inbox.SendEnabled", LocatorPropertiesFile);
+
+	}
+
+	public void checkForFeedback() throws Throwable {
+		try {
+			getElement("Inbox.Give_Feedback", LocatorPropertiesFile);
+			PrintValue("Feedback option is displayed after giving feedback");
+			
+		}
+		catch (Exception e) {
+			PrintValue("Feedback option is not displayed after giving feedback");
+		}
+
+		tapTheElement("CancelButton", LocatorPropertiesFile);
+		tapTheElement("Inbox.BackArrow", LocatorPropertiesFile);
+
+	}
+
+	public void toastMessage(String Text) throws Throwable {
+
+		//		MobileElement toastElement = IOsdriver.findElement(By.xpath(
+		//				"//XCUIElementTypeStaticText[@name='Invalid credentials']"));
+
+		MobileElement 	toastElement = IOsdriver
+				.findElement(MobileBy.iOSClassChain(("**/XCUIElementTypeStaticText[`label == \"" + Text + "\"`]")));
+		isElementDisplayed(toastElement);
+
+		String toastText = toastElement.getText();
+		assertTextValue(toastText, Text);
+		reportLog("Toast Message: " + toastText);
+		PrintValue("Toast Message: " + toastText);
 	}
 
 	public void validateByTextInArchiveTab() throws Throwable {
