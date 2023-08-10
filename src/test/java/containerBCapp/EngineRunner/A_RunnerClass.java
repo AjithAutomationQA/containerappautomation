@@ -3,10 +3,10 @@ package containerBCapp.EngineRunner;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 
-@CucumberOptions(plugin = {"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:", 
+@CucumberOptions(plugin = { 
 "rerun:target/FailedScenarios.txt"},
 
-tags = "@test",
+tags = "@Login1",
 
 features = {"FeatureFiles"},  
 glue = {"containerBCappStepDefinition", "containerBCappHooks"}, dryRun = false

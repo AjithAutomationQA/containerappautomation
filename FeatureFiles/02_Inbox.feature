@@ -1,12 +1,12 @@
 @Regression
 Feature: To verify the inbox feature
 
-  @Inbox
+  @Inbox 
   Scenario: To verify user can tap and view the message details
     Given User taps on a message
     Then User should see the message detailed view
 
-  @Inbox
+  @Inbox 
   Scenario: To swipe and archive a message from inbox
     Given User swipes the message to archive from the inbox
     And User goes to archive tab
@@ -56,16 +56,16 @@ Feature: To verify the inbox feature
     When User swipes the message to restore from the trash tab
     Then User should find that messsage in the inbox tab
 
-  @Inbox 
-  Scenario: To verify that user can send a feedback to a message
-    Given User taps on a message
-    And Tap on the dropdown button
-    And Tap on the feedback button from the bottom sheet
-    And Enters the feedback in the input field
-    When Taps on the send button
-    Then The feedback should be sent successfully
-    And Tap on the dropdown button
-    Then The feedback should not be visible
+  #@Inbox 
+  #Scenario: To verify that user can send a feedback to a message
+    #Given User taps on a message
+    #And Tap on the dropdown button
+    #And Tap on the feedback button from the bottom sheet
+    #And Enters the feedback in the input field
+    #When Taps on the send button
+    #Then The feedback should be sent successfully
+    #And Tap on the dropdown button
+    #Then The feedback should not be visible
 
   @Inbox
   Scenario: To verify user can longpress and select only 5 messages

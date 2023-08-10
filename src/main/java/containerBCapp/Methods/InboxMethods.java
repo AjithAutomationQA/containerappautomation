@@ -25,8 +25,11 @@ public class InboxMethods extends ExcelRead {
 	public String messageName ;
 	public String readName;
 	public String unReadName;
-	public String name1;
-	public String text;
+	public String retrievedMessageName2;
+	public String retrievedMessageName;
+	public String messageName2= "Message Five";
+	public String swipeMessageName= "Message Four";
+	
 
 
 	public String tapOnTheMessage() throws Throwable {
@@ -73,13 +76,14 @@ public class InboxMethods extends ExcelRead {
 
 		WebElement Share_button = getElement("Inbox.Share_button", LocatorPropertiesFile);
 		isElementDisplayed(Share_button);
+		tapTheElement("Inbox.BackArrow", LocatorPropertiesFile);
 
 	}
 
 	public void archiveSwipeByText() throws Throwable {
 
 		//WebElement FirstMessage = getMobileElement("Inbox.FirstMessage", LocatorPropertiesFile);
-		messageName = swipeRightToLeft("Point Message","down");
+		messageName = swipeRightToLeft(swipeMessageName,"down");
 		try {
 			tapTheElement("Inbox.ArchiveIcon", LocatorPropertiesFile);
 		}
@@ -187,13 +191,13 @@ public class InboxMethods extends ExcelRead {
 
 	public void longPressTheMessageByText() throws Throwable {
 
-		messageName = longPress("Test 3S","down"); 
+		messageName = longPress(messageName2 ,"down"); 
 	}
 
 	public void unArchiveSwipeByText() throws Throwable {
 
 		//WebElement FirstMessage = getMobileElement("Inbox.FirstMessage", LocatorPropertiesFile);
-		messageName = swipeRightToLeft("Test 3S","down");
+		messageName = swipeRightToLeft(messageName2 ,"down");
 
 		try {
 			tapTheElement("Inbox.UnarchiveIcon", LocatorPropertiesFile);
@@ -222,7 +226,7 @@ public class InboxMethods extends ExcelRead {
 	public void restoreSwipeByText() throws Throwable {
 
 		//WebElement FirstMessage = getMobileElement("Inbox.FirstMessage", LocatorPropertiesFile);
-		messageName = swipeRightToLeft("Test 3S","down");
+		messageName = swipeRightToLeft(messageName2 ,"down");
 
 		try {
 
@@ -360,8 +364,10 @@ public class InboxMethods extends ExcelRead {
 
 				PrintValue(NoUnreadMessageText);
 				PrintValue("No of unread message in inbox is zero");
+				selectAllMessages();
 
 			}
+			selectAllMessages();
 
 		}
 
@@ -376,7 +382,7 @@ public class InboxMethods extends ExcelRead {
 		WebElement FirstUnreadMessage = getElement("FirstUnreadMessage", LocatorPropertiesFile);
 		unReadName = FirstUnreadMessage.getText();
 
-		assertTextValue(text, unReadName);
+		assertTextValue(retrievedMessageName, unReadName);
 		//		WebElement archivedMessage = scroll(messageName, "down");
 		//		assertEquals(archivedMessage, messageName, "Message archived is: " + messageName);
 		//
@@ -390,7 +396,7 @@ public class InboxMethods extends ExcelRead {
 		WebElement FirstReadMessage = getElement("FirstReadMessage", LocatorPropertiesFile);
 		readName = FirstReadMessage.getText();
 
-		assertTextValue(text, readName);
+		assertTextValue(retrievedMessageName, readName);
 		//		WebElement archivedMessage = scroll(messageName, "down");
 		//		assertEquals(archivedMessage, messageName, "Message archived is: " + messageName);
 		//
@@ -512,7 +518,7 @@ public class InboxMethods extends ExcelRead {
 	public void longPressAndReadMessage() throws Throwable {
 
 		WebElement FirstUnreadMessage = getElement("FirstUnreadMessage", LocatorPropertiesFile);
-		name1 = FirstUnreadMessage.getText();
+		retrievedMessageName2 = FirstUnreadMessage.getText();
 		longpress(FirstUnreadMessage);
 		tapTheElement("Inbox.ReadButtonIdentifier", LocatorPropertiesFile);
 
@@ -532,7 +538,7 @@ public class InboxMethods extends ExcelRead {
 		catch (Exception e) {
 			WebElement FirstUnreadMessage = getElement("FirstUnreadMessage", LocatorPropertiesFile);
 			String FirstUnreadMessageText = FirstUnreadMessage.getText();
-			assertTextFalse(name1, FirstUnreadMessageText);
+			assertTextFalse(retrievedMessageName2, FirstUnreadMessageText);
 			PrintValue("Message marked as read in unread filter successfully");
 			selectAllMessages();
 		}
@@ -541,7 +547,7 @@ public class InboxMethods extends ExcelRead {
 
 	public void archiveFirstUnreadMessage() throws Throwable {
 		WebElement FirstUnreadMessage = getElement("FirstUnreadMessage", LocatorPropertiesFile);
-		text = swipeR2LusingLocator(FirstUnreadMessage);
+		retrievedMessageName = swipeR2LusingLocator(FirstUnreadMessage);
 		try {
 			tapTheElement("Inbox.ArchiveIcon", LocatorPropertiesFile);
 		}
@@ -553,7 +559,7 @@ public class InboxMethods extends ExcelRead {
 
 	public void archiveFirstreadMessage() throws Throwable {
 		WebElement FirstUnreadMessage = getElement("FirstReadMessage", LocatorPropertiesFile);
-		text = swipeR2LusingLocator(FirstUnreadMessage);
+		retrievedMessageName = swipeR2LusingLocator(FirstUnreadMessage);
 		try {
 			tapTheElement("Inbox.ArchiveIcon", LocatorPropertiesFile);
 		}
@@ -579,7 +585,7 @@ public class InboxMethods extends ExcelRead {
 		catch (Exception e) {
 			WebElement FirstUnreadMessage = getElement("FirstUnreadMessage", LocatorPropertiesFile);
 			String FirstUnreadMessageText = FirstUnreadMessage.getText();
-			assertTextFalse(text, FirstUnreadMessageText);
+			assertTextFalse(retrievedMessageName, FirstUnreadMessageText);
 			PrintValue("Archived unread message not available in the unread filter tab");
 			selectAllMessages();
 
@@ -590,7 +596,7 @@ public class InboxMethods extends ExcelRead {
 	public void longPressAndTrash () throws Throwable {
 
 		WebElement FirstMessage = getElement("FirstMessage", LocatorPropertiesFile);
-		text  = FirstMessage.getText();
+		retrievedMessageName  = FirstMessage.getText();
 		longpress(FirstMessage);
 		tapTheTrashButtonIdentifier();
 
@@ -613,7 +619,7 @@ public class InboxMethods extends ExcelRead {
 		catch (Exception e) {
 			WebElement FirstUnreadMessage = getElement("FirstUnreadMessage", LocatorPropertiesFile);
 			String FirstUnreadMessageText = FirstUnreadMessage.getText();
-			assertTextFalse(text, FirstUnreadMessageText);
+			assertTextFalse(retrievedMessageName, FirstUnreadMessageText);
 			PrintValue("Trashed unread message not available in the unread filter tab");
 			selectAllMessages();
 

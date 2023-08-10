@@ -1,23 +1,26 @@
 @Regression
 Feature: To verify the chat in the connect tab
 
+@Connect
   Scenario: To verify UI elements in the chat conversation view
     Given User taps on the connect tab
     And User opens a chat
     Then The respective UI elements should be displayed
 
+@Connect
   Scenario: To verify send button is disabled when input bar is empty
     Given User taps on the connect tab
     And User opens a chat
     Then The send button should be disabled
 
+@Connect
   Scenario: To verify user cannot send empty message
     Given User taps on the connect tab
     And User opens a chat
     When User enters space in the input bar
     Then The send button should be disabled
 
-  @test
+  @Connect
   Scenario: To verify user can send message
     Given User taps on the connect tab
     And User opens a chat

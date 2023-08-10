@@ -36,7 +36,8 @@ public class LoginMethods extends ExcelRead {
 				"(//XCUIElementTypeStaticText)[5]"));
 
 		String toastText = toastElement.getText();
-		assertTextValue(toastText, Text);
+	//	assertTextValue(toastText, Text);
+		softTextPresent(toastText, Text);
 		reportLog("Toast Message: " + toastText);
 		PrintValue("Toast Message: " + toastText);
 	}

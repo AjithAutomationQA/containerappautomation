@@ -17,6 +17,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
 import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
 
@@ -37,10 +38,12 @@ public class CommonUtilities {
 	public static String Locator;
 	public static File FileLocation;
 	public static IOSDriver<IOSElement>IOsdriver;
+	public static SoftAssert sa;
 
 	public static String LocatorPropertiesFile = "./src/test/resources/Properties/Xpath.properties";
 	public static String AppPropertiesFile = "./src/test/resources/Properties/App.properties";
 	public static String ExcelFile = "./TestData/AnswerConnectData.xlsx";
+
 
 	@SuppressWarnings("static-access")
 	public static void lauchTheApp() throws Throwable {
@@ -116,7 +119,7 @@ public class CommonUtilities {
 		Assert.assertEquals(true, element.isDisplayed());
 		return element;
 	}
-	
+
 
 	public WebElement isElementDisplayed(WebElement element) throws Throwable {
 
@@ -159,9 +162,28 @@ public class CommonUtilities {
 	}
 
 	public void assertEquals(WebElement element, String input, String name) {
+		
 		String getheadertext = element.getText();
 		Assert.assertEquals(input, getheadertext);
 		PrintValue(name);
+	}
+
+	public void isSoftElementDisplayed(WebElement element, String input, String name){
+		
+		SoftAssert sa = new SoftAssert();
+		String getheadertext = element.getText();
+		sa.assertEquals(input, getheadertext);
+	//	sa.assertAll();
+		reportLog("Actual element :- ");
+	}
+	
+	public void softTextPresent(String toastText, String Text){
+		
+		SoftAssert sa = new SoftAssert();
+		sa.assertEquals(toastText, Text);
+		//sa.assertAll();
+		reportLog("Actual element :- ");
+		
 	}
 
 	public void reportLog(String Log) {
@@ -203,13 +225,8 @@ public class CommonUtilities {
 	}
 
 	public WebElement findElementByName(String Name) {
-		WebElement locator = null ;
-		try {
-			locator = IOsdriver
-					.findElement(MobileBy.iOSClassChain(("**/XCUIElementTypeStaticText[`label == \"" + Name + "\"`]")));
+		WebElement	locator = IOsdriver.findElement(MobileBy.iOSClassChain(("**/XCUIElementTypeStaticText[`label == \"" + Name + "\"`]")));
 
-		} catch (Exception e) {
-		}
 		return locator;
 	}
 

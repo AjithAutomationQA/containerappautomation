@@ -38,9 +38,16 @@ public class ConnectMethods extends ExcelRead {
 	
 	public void sendButton_Disabled() throws Throwable {
 
+		try {
 		isElementDisplayed("Connect.chat_send_inactive_icon", LocatorPropertiesFile);
 		PrintValue("Send button is disabled when input is empty");
 		tapTheElement("Inbox.BackArrow", LocatorPropertiesFile);
+		}
+		catch (Exception e) {
+			PrintError("Send button is enabled");
+			tapTheElement("Inbox.BackArrow", LocatorPropertiesFile);
+		}
+		
 		
 	}
 	

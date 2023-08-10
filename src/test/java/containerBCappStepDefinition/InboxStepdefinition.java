@@ -120,6 +120,7 @@ public class InboxStepdefinition extends InboxMethods{
 
 	@Then("User should find that messsage in the inbox tab")
 	public void user_should_find_that_messsage_in_the_inbox_tab() throws Throwable {
+		
 		validateInboxTabByText();
 	}
 
@@ -127,6 +128,7 @@ public class InboxStepdefinition extends InboxMethods{
 
 	@And("Taps on the trash button identifier")
 	public void taps_on_the_trash_button_identifier() throws Throwable {
+		
 		tapTheTrashButtonIdentifier();
 	}
 
@@ -166,11 +168,13 @@ public class InboxStepdefinition extends InboxMethods{
 
 	@Given("User tries to select more than 5 no of messages in the inbox tab")
 	public void user_tries_to_select_more_than_5_no_of_messages_in_the_inbox_tab() throws Throwable {
+		
 		selectMessages();
 	}
 
 	@Then("User should be allowed to select only 5 messages")
 	public void user_should_be_allowed_to_select_only_6_messages() throws Throwable {
+		
 		validateNoOfSelectedMessage();
 	}
 

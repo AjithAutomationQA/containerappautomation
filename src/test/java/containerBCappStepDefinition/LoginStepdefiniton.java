@@ -38,7 +38,9 @@ public class LoginStepdefiniton extends LoginMethods {
 	@Then("User should see a warning toast for invalid email")
 	public void user_should_see_a_warning_toast_for_invalid_email() throws Throwable {
 
-		loginErrorToast("Invalid credentials");
+		loginErrorToast("Invalid credentials make it error");
+		PrintError("Invalid credentials make it error");
+		PrintError("soft assert working");
 
 	}
 
