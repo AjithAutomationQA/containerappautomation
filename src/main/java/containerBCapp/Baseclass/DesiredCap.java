@@ -25,6 +25,9 @@ public class DesiredCap extends CommonUtilities {
 		desiredCapabilities.setCapability("appium:bundleId", ReadProperties("bundleId", AppPropertiesFile));
 		IOsdriver = new IOSDriver<IOSElement>(new URL("http://0.0.0.0:4723/wd/hub"), desiredCapabilities);
 		IOsdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+		// Migrating to appium 2.X
+
 	}
 
 }
