@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import containerBCapp.ExcelRead.ExcelRead;
-import io.appium.java_client.MobileElement;
 
 public class LoginMethods extends ExcelRead {
 
@@ -32,7 +31,7 @@ public class LoginMethods extends ExcelRead {
 //		MobileElement toastElement = IOsdriver.findElement(By.xpath(
 //				"//XCUIElementTypeStaticText[@name='Invalid credentials']"));
 		
-		MobileElement toastElement = IOsdriver.findElement(By.xpath(
+		WebElement toastElement = IOsdriver.findElement(By.xpath(
 				"(//XCUIElementTypeStaticText)[5]"));
 
 		String toastText = toastElement.getText();

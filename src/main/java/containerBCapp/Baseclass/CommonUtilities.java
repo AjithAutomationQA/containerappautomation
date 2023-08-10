@@ -7,27 +7,20 @@ import java.io.File;
 import java.io.FileReader;
 import java.time.Duration;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Properties;
 
+import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
-
 import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
 
 import io.appium.java_client.MobileBy;
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
-import io.appium.java_client.ios.IOSDriver;
-import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import io.cucumber.java.Scenario;
@@ -37,7 +30,7 @@ public class CommonUtilities {
 	public static Properties Prop;
 	public static String Locator;
 	public static File FileLocation;
-	public static IOSDriver<IOSElement>IOsdriver;
+	public static IOSDriver IOsdriver;
 	public static SoftAssert sa;
 
 	public static String LocatorPropertiesFile = "./src/test/resources/Properties/Xpath.properties";
@@ -76,7 +69,7 @@ public class CommonUtilities {
 			return (WebElement) IOsdriver.findElement(MobileBy.AccessibilityId(LocatorValue));
 
 		else if (LocatorType.equalsIgnoreCase("xpath"))
-			return IOsdriver.findElementByXPath(LocatorValue);
+			return IOsdriver.findElement(By.xpath(LocatorValue));
 
 		else if (LocatorType.equalsIgnoreCase("iOSClassChain"))
 			return IOsdriver.findElement(MobileBy.iOSClassChain(LocatorValue));
@@ -88,7 +81,7 @@ public class CommonUtilities {
 
 	public void waitFor(WebElement element) throws Throwable {
 
-		WebDriverWait wait = new WebDriverWait(IOsdriver, 60);
+		WebDriverWait wait = new WebDriverWait(IOsdriver, Duration.ofSeconds(60));
 
 		wait.until(ExpectedConditions.elementToBeClickable(element));
 
@@ -96,7 +89,7 @@ public class CommonUtilities {
 
 	public void waitForTheElement(String Locator, String locatorfile) throws Throwable {
 
-		WebDriverWait wait = new WebDriverWait(IOsdriver, 60);
+		WebDriverWait wait = new WebDriverWait(IOsdriver, Duration.ofSeconds(60));
 		WebElement element = getElement(Locator, locatorfile);
 
 		wait.until(ExpectedConditions.elementToBeClickable(element));
@@ -105,7 +98,7 @@ public class CommonUtilities {
 
 	public WebElement getMobileElement(String Locator, String locatorfile) throws Throwable {
 
-		WebDriverWait wait = new WebDriverWait(IOsdriver, 60);
+		WebDriverWait wait = new WebDriverWait(IOsdriver, Duration.ofSeconds(60));
 		WebElement element = getElement(Locator, locatorfile);
 		wait.until(ExpectedConditions.visibilityOf(element));
 		element.isDisplayed();
