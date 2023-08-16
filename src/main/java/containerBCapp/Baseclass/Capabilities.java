@@ -1,14 +1,12 @@
 package containerBCapp.Baseclass;
 
 import java.net.URL;
-import java.util.concurrent.TimeUnit;
 
 import io.appium.java_client.ios.options.XCUITestOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 import io.appium.java_client.ios.IOSDriver;
 
-public class DesiredCap extends CommonUtilities {
+public class Capabilities extends CommonUtilities {
 	
 	public static void LaunchIosApp() throws Throwable {
 

@@ -5,12 +5,17 @@ import static io.appium.java_client.touch.offset.ElementOption.element;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
+import java.net.ServerSocket;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Properties;
 
+import io.appium.java_client.AppiumBy;
 import io.appium.java_client.ios.IOSDriver;
-import org.openqa.selenium.By;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
+import io.appium.java_client.service.local.AppiumServiceBuilder;
+import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -23,10 +28,10 @@ import io.appium.java_client.MobileBy;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
-import io.cucumber.java.Scenario;
 
 public class CommonUtilities {
 
+	public static AppiumDriverLocalService service;
 	public static Properties Prop;
 	public static String Locator;
 	public static File FileLocation;
@@ -38,11 +43,42 @@ public class CommonUtilities {
 	public static String ExcelFile = "./TestData/AnswerConnectData.xlsx";
 
 
+	public static AppiumDriverLocalService startServer(){
+		boolean flag = checkIfServerRunning(4723);
+		if(!flag){
+			AppiumServiceBuilder builder = new AppiumServiceBuilder();
+			builder
+					.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
+					.usingDriverExecutable(new File("/usr/local/bin/node"))
+					.usingPort(4723)
+					.withArgument(GeneralServerFlag.USE_PLUGINS, "element-wait@2.0.3")
+					.withLogFile(new File("test-output/AppiumLogs/"+"AppiumLog.txt"));
+			service =  AppiumDriverLocalService.buildService(builder);
+			service.start();
+		}
+		return service;
+	}
+
+	public static boolean checkIfServerRunning(int portNumber){
+		boolean isServerRunning=false;
+		ServerSocket serversocket;
+		try{
+			serversocket = new ServerSocket(portNumber);
+			serversocket.close();
+		}
+		catch(IOException e)
+		{
+			isServerRunning = true;
+		}
+		return isServerRunning;
+	}
+
 	@SuppressWarnings("static-access")
 	public static void lauchTheApp() throws Throwable {
 
-		DesiredCap dc = new DesiredCap();
-		dc.LaunchIosApp();
+		Capabilities capabilities = new Capabilities();
+		service = startServer();
+		capabilities.LaunchIosApp();
 
 	}
 
@@ -66,35 +102,35 @@ public class CommonUtilities {
 		LocatorValue = Prop.getProperty(Property).split(":")[1];
 
 		if (LocatorType.equalsIgnoreCase("accessibility"))
-			return (WebElement) IOsdriver.findElement(MobileBy.AccessibilityId(LocatorValue));
+			return IOsdriver.findElement(AppiumBy.accessibilityId(LocatorValue));
 
 		else if (LocatorType.equalsIgnoreCase("xpath"))
-			return IOsdriver.findElement(By.xpath(LocatorValue));
+			return IOsdriver.findElement(AppiumBy.xpath(LocatorValue));
 
 		else if (LocatorType.equalsIgnoreCase("iOSClassChain"))
-			return IOsdriver.findElement(MobileBy.iOSClassChain(LocatorValue));
+			return IOsdriver.findElement(AppiumBy.iOSClassChain(LocatorValue));
 
 		else
 			throw new Exception("Unknown locator type '" + LocatorType + "'");
 
 	}
 
-	public void waitFor(WebElement element) throws Throwable {
+//	public void waitFor(WebElement element) throws Throwable {
+//
+//		WebDriverWait wait = new WebDriverWait(IOsdriver, Duration.ofSeconds(60));
+//
+//		wait.until(ExpectedConditions.elementToBeClickable(element));
+//
+//	}
 
-		WebDriverWait wait = new WebDriverWait(IOsdriver, Duration.ofSeconds(60));
-
-		wait.until(ExpectedConditions.elementToBeClickable(element));
-
-	}
-
-	public void waitForTheElement(String Locator, String locatorfile) throws Throwable {
-
-		WebDriverWait wait = new WebDriverWait(IOsdriver, Duration.ofSeconds(60));
-		WebElement element = getElement(Locator, locatorfile);
-
-		wait.until(ExpectedConditions.elementToBeClickable(element));
-
-	}
+//	public void waitForTheElement(String Locator, String locatorfile) throws Throwable {
+//
+//		WebDriverWait wait = new WebDriverWait(IOsdriver, Duration.ofSeconds(60));
+//		WebElement element = getElement(Locator, locatorfile);
+//
+//		wait.until(ExpectedConditions.elementToBeClickable(element));
+//
+//	}
 
 	public WebElement getMobileElement(String Locator, String locatorfile) throws Throwable {
 
@@ -180,7 +216,7 @@ public class CommonUtilities {
 	}
 
 	public void reportLog(String Log) {
-
+		System.out.println("Log" + Log);
 		ExtentCucumberAdapter.addTestStepLog(Log);
 	}
 
@@ -294,7 +330,7 @@ public class CommonUtilities {
 			element = ioschain("**/XCUIElementTypeStaticText[`label == \"" + Name + "\"`]");
 			if (element.isDisplayed()) {
 				PrintValue("Message found");
-				waitFor(element);
+//				waitFor(element);
 				flag = "false";
 			}
 
