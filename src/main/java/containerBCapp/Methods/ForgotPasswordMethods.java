@@ -1,10 +1,9 @@
 package containerBCapp.Methods;
 
 import org.openqa.selenium.By;
-import org.testng.Assert;
 
 import containerBCapp.ExcelRead.ExcelRead;
-import io.appium.java_client.MobileElement;
+import org.openqa.selenium.WebElement;
 
 public class ForgotPasswordMethods extends ExcelRead {
 
@@ -63,7 +62,7 @@ public class ForgotPasswordMethods extends ExcelRead {
 	public void ToastError(String Text) throws Throwable {
 
 
-		MobileElement toastElement = IOsdriver.findElement(By.xpath(
+		WebElement toastElement = IOsdriver.findElement(By.xpath(
 				"(//XCUIElementTypeStaticText)[2]"));
 		
 		String toastText = toastElement.getText();
