@@ -15,10 +15,8 @@ import org.testng.annotations.Test;
 
 import containerBCapp.ExcelRead.ExcelRead;
 import io.appium.java_client.MobileBy;
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.ios.IOSDriver;
-import io.appium.java_client.ios.IOSElement;
 
 public class InboxMethods extends ExcelRead {
 
@@ -31,7 +29,6 @@ public class InboxMethods extends ExcelRead {
 	public String swipeMessageName= "Message Four";
 	
 
-
 	public String tapOnTheMessage() throws Throwable {
 
 		makeReadMessage();
@@ -41,7 +38,6 @@ public class InboxMethods extends ExcelRead {
 	}
 
 	public void verifyMessageDetails() throws Throwable {
-
 
 		WebElement findElementByName = findElementByName(readName);
 		String text2 = findElementByName.getText();
@@ -77,7 +73,6 @@ public class InboxMethods extends ExcelRead {
 		WebElement Share_button = getElement("Inbox.Share_button", LocatorPropertiesFile);
 		isElementDisplayed(Share_button);
 		tapTheElement("Inbox.BackArrow", LocatorPropertiesFile);
-
 	}
 
 	public void archiveSwipeByText() throws Throwable {
@@ -90,7 +85,6 @@ public class InboxMethods extends ExcelRead {
 
 		catch (Exception e) {
 		}
-
 	}
 
 	public void tapArchiveFromMenu() throws Throwable {
@@ -139,13 +133,11 @@ public class InboxMethods extends ExcelRead {
 			tapTheElement("Inbox.BadFeedback", LocatorPropertiesFile);
 			isElementDisplayed("Inbox.Bad_Feedback_Active", LocatorPropertiesFile);
 		}
-
 	}
 
 	public void tapSendEnabled() throws Throwable {
 
 		tapTheElement("Inbox.SendEnabled", LocatorPropertiesFile);
-
 	}
 
 	public void checkForFeedback() throws Throwable {
@@ -160,7 +152,6 @@ public class InboxMethods extends ExcelRead {
 
 		tapTheElement("CancelButton", LocatorPropertiesFile);
 		tapTheElement("Inbox.BackArrow", LocatorPropertiesFile);
-
 	}
 
 	public void toastMessage(String Text) throws Throwable {
@@ -168,7 +159,7 @@ public class InboxMethods extends ExcelRead {
 		//		MobileElement toastElement = IOsdriver.findElement(By.xpath(
 		//				"//XCUIElementTypeStaticText[@name='Invalid credentials']"));
 
-		MobileElement 	toastElement = IOsdriver
+		WebElement 	toastElement = IOsdriver
 				.findElement(MobileBy.iOSClassChain(("**/XCUIElementTypeStaticText[`label == \"" + Text + "\"`]")));
 		isElementDisplayed(toastElement);
 
@@ -185,7 +176,6 @@ public class InboxMethods extends ExcelRead {
 		assertEquals(archivedMessage, messageName, "Message archived is: " + messageName);
 
 		tapTheElement("Inbox.BackArrow", LocatorPropertiesFile);
-
 	}
 
 
@@ -253,13 +243,10 @@ public class InboxMethods extends ExcelRead {
 	public void tapOnUnreadDrd () throws Throwable {
 
 		tapTheElement("Filter.Unread", LocatorPropertiesFile);
-
 	}
 
 	public void tapOnUnreadFilter () throws Throwable {
-
 		tapTheElement("Filter.Unreadmessage", LocatorPropertiesFile);
-
 	}
 
 	public void tapOnApplyButton () throws Throwable {
@@ -286,7 +273,6 @@ public class InboxMethods extends ExcelRead {
 	public void onlyUnreadMessageList () throws Throwable {
 
 		try {
-
 			WebElement NoUnreadMessage = getElement("Filter.NoUnreadMessage", LocatorPropertiesFile);
 			String NoUnreadMessageText = NoUnreadMessage.getText();
 
@@ -295,12 +281,10 @@ public class InboxMethods extends ExcelRead {
 				PrintValue(NoUnreadMessageText);
 				selectAllMessages();
 			}
-
-
 		}
 		catch (Exception e) {
 			PrintValue("List of unread messages are present");
-			List<IOSElement> unreadList = IOsdriver.findElements(By.xpath("(//XCUIElementTypeImage[@name=\"message-unread-icn\"])"));
+			List<WebElement> unreadList = IOsdriver.findElements(By.xpath("(//XCUIElementTypeImage[@name=\"message-unread-icn\"])"));
 			int noOfUnreadMessages =	unreadList.size();
 			PrintValue("No of unread message in the unread filter is: "+ noOfUnreadMessages);
 
@@ -319,15 +303,15 @@ public class InboxMethods extends ExcelRead {
 		}
 	}
 
-
 	public void compareInboxAndUnread () throws Throwable {
 
 		int noOfUnreadInInbox ;
 		int noOfUnreadInFilter;
+
 		try {
 			WebElement unreadMessage = IOsdriver.findElement(By.xpath("(//XCUIElementTypeImage[@name=\"message-unread-icn\"])"));
 
-			List<IOSElement> unreadListInbox = IOsdriver.findElements(By.xpath("(//XCUIElementTypeImage[@name=\"message-unread-icn\"])"));
+			List<WebElement> unreadListInbox = IOsdriver.findElements(By.xpath("(//XCUIElementTypeImage[@name=\"message-unread-icn\"])"));
 			noOfUnreadInInbox =	unreadListInbox.size();
 
 			if(noOfUnreadInInbox>0) {
@@ -335,8 +319,7 @@ public class InboxMethods extends ExcelRead {
 				selectUnreadFromFilter();
 				tapOnApplyButton();
 
-
-				List<IOSElement> unreadListInUnread = IOsdriver.findElements(By.xpath("(//XCUIElementTypeImage[@name=\"message-unread-icn\"])"));
+				List<WebElement> unreadListInUnread = IOsdriver.findElements(By.xpath("(//XCUIElementTypeImage[@name=\"message-unread-icn\"])"));
 				noOfUnreadInFilter =	unreadListInUnread.size();
 				if(noOfUnreadInInbox==noOfUnreadInFilter) {
 
@@ -349,9 +332,7 @@ public class InboxMethods extends ExcelRead {
 					PrintError("No of unread messages in the inbox and unread filter are different");
 					selectAllMessages();
 				}
-
 			}
-
 		}
 		catch (Exception e) {
 			PrintValue("No of unread message in inbox is zero");
@@ -365,19 +346,15 @@ public class InboxMethods extends ExcelRead {
 				PrintValue(NoUnreadMessageText);
 				PrintValue("No of unread message in inbox is zero");
 				selectAllMessages();
-
 			}
 			selectAllMessages();
-
 		}
-
 	}
 
 
 	//////////////////////
 
 	public void validateInArchiveTab() throws Throwable {
-
 
 		WebElement FirstUnreadMessage = getElement("FirstUnreadMessage", LocatorPropertiesFile);
 		unReadName = FirstUnreadMessage.getText();
@@ -387,7 +364,6 @@ public class InboxMethods extends ExcelRead {
 		//		assertEquals(archivedMessage, messageName, "Message archived is: " + messageName);
 		//
 		tapTheElement("Inbox.BackArrow", LocatorPropertiesFile);
-
 	}
 
 	public void validateReadInArchiveTab() throws Throwable {
@@ -401,7 +377,6 @@ public class InboxMethods extends ExcelRead {
 		//		assertEquals(archivedMessage, messageName, "Message archived is: " + messageName);
 		//
 		tapTheElement("Inbox.BackArrow", LocatorPropertiesFile);
-
 	}
 
 
@@ -419,14 +394,11 @@ public class InboxMethods extends ExcelRead {
 
 		tapTheElement("Inbox.ThreeDotButton", LocatorPropertiesFile);
 		tapTheElement("Inbox.Trash", LocatorPropertiesFile);
-
 	}
 
 
 
 	public void selectMessages() throws Throwable {
-
-
 
 		for(int i=1; i<=6; i++) {
 
@@ -445,19 +417,17 @@ public class InboxMethods extends ExcelRead {
 		WebElement Message = getMobileElement("Inbox.NoOfSelectedMessages", LocatorPropertiesFile);
 		assertEquals( Message, "5", "Allowed to select upto 5 messages only");
 		tapTheElement("Inbox.BackArrow", LocatorPropertiesFile);
-
 	}
 
 	public void selected () throws Throwable {
 
-		WebElement messageName = 	IOsdriver.findElementByXPath("(//XCUIElementTypeStaticText[@name=\"message-title-read-lab\"])[1]");
-
+		WebElement messageName = 	IOsdriver.findElement(By.xpath("(//XCUIElementTypeStaticText[@name=\"message-title-read-lab\"])[1]"));
 
 		if(messageName.isDisplayed()) {
 			String name = 	messageName.getText();
 			PrintValue(name);
-			WebElement read = 	IOsdriver.findElementByXPath("(//XCUIElementTypeImage[@name=\"message-read-icn\"])[1]");
-			WebElement unread = 	IOsdriver.findElementByXPath("(//XCUIElementTypeImage[@name=\"message-unread-icn\"])[1]");
+			WebElement read = 	IOsdriver.findElement(By.xpath("(//XCUIElementTypeImage[@name=\"message-read-icn\"])[1]"));
+			WebElement unread = 	IOsdriver.findElement(By.xpath("(//XCUIElementTypeImage[@name=\"message-unread-icn\"])[1]"));
 
 			if(read.isDisplayed()) {
 
@@ -467,15 +437,8 @@ public class InboxMethods extends ExcelRead {
 			else if (unread.isDisplayed()) {
 				PrintValue("is unread");
 			}
-
 		}
-
-
 	}
-
-
-
-
 
 	public void makeReadMessage() throws Throwable {
 
@@ -484,7 +447,6 @@ public class InboxMethods extends ExcelRead {
 		WebElement FirstReadMessage = getElement("FirstReadMessage", LocatorPropertiesFile);
 		readName = FirstReadMessage.getText();
 		PrintValue("Message read is :"+ readName);
-
 	}
 
 
@@ -495,13 +457,11 @@ public class InboxMethods extends ExcelRead {
 		WebElement FirstUnreadMessage = getElement("FirstUnreadMessage", LocatorPropertiesFile);
 		unReadName = FirstUnreadMessage.getText();
 		PrintValue("Message unread is :"+ unReadName);
-
 	}
 	public void assertMessageName() throws Throwable {
 
 		assertTextValue(readName, unReadName);
 		PrintValue("Message is unread successfully");
-
 	}
 
 	public void readMessageFromUnread() throws Throwable {
@@ -521,7 +481,6 @@ public class InboxMethods extends ExcelRead {
 		retrievedMessageName2 = FirstUnreadMessage.getText();
 		longpress(FirstUnreadMessage);
 		tapTheElement("Inbox.ReadButtonIdentifier", LocatorPropertiesFile);
-
 	}
 	public void verifyUnreadList() throws Throwable {
 
@@ -542,7 +501,6 @@ public class InboxMethods extends ExcelRead {
 			PrintValue("Message marked as read in unread filter successfully");
 			selectAllMessages();
 		}
-
 	}
 
 	public void archiveFirstUnreadMessage() throws Throwable {
@@ -552,9 +510,7 @@ public class InboxMethods extends ExcelRead {
 			tapTheElement("Inbox.ArchiveIcon", LocatorPropertiesFile);
 		}
 		catch (Exception e) {
-
 		}
-
 	}
 
 	public void archiveFirstreadMessage() throws Throwable {
@@ -564,13 +520,10 @@ public class InboxMethods extends ExcelRead {
 			tapTheElement("Inbox.ArchiveIcon", LocatorPropertiesFile);
 		}
 		catch (Exception e) {
-
 		}
-
 	}
 
 	public void archivenotinUnread() throws Throwable {
-
 
 		try {
 			WebElement NoUnreadMessage = 		getElement("Filter.NoUnreadMessage", LocatorPropertiesFile);
@@ -588,9 +541,7 @@ public class InboxMethods extends ExcelRead {
 			assertTextFalse(retrievedMessageName, FirstUnreadMessageText);
 			PrintValue("Archived unread message not available in the unread filter tab");
 			selectAllMessages();
-
 		}
-
 	}
 
 	public void longPressAndTrash () throws Throwable {
@@ -599,8 +550,6 @@ public class InboxMethods extends ExcelRead {
 		retrievedMessageName  = FirstMessage.getText();
 		longpress(FirstMessage);
 		tapTheTrashButtonIdentifier();
-
-
 	}
 
 	public void trashednotinUnread() throws Throwable {
@@ -626,19 +575,5 @@ public class InboxMethods extends ExcelRead {
 		}
 
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import containerBCapp.ExcelRead.ExcelRead;
-import io.appium.java_client.MobileElement;
 
 public class LoginMethods extends ExcelRead {
 
@@ -12,32 +11,32 @@ public class LoginMethods extends ExcelRead {
 
 		WebElement loginButton = getMobileElement("loginxpath", LocatorPropertiesFile);
 		boolean status = loginButton.isEnabled();
-        Assert.assertFalse(status);
+		Assert.assertEquals(status, false);
 		PrintValue("Login button is disabled");
 
 	}
 
 	
-	public void enterInvalidCredentials() throws Throwable {
-		testData();
-		sendKey("Login.Email", LocatorPropertiesFile, inValidEmailID);
-		reportLog("Entered email: " + inValidEmailID);
-
-		sendKey("Login.Password", LocatorPropertiesFile, inValidpassword);
-		reportLog("Entered password: " + inValidpassword);
-	}
+//	public void enterInvalidCredentials() throws Throwable {
+//		testData();
+//		sendKey("Login.Email", LocatorPropertiesFile, inValidEmailID);
+//		reportLog("Entered email: " + inValidEmailID);
+//
+//		sendKey("Login.Password", LocatorPropertiesFile, inValidpassword);
+//		reportLog("Entered password: " + inValidpassword);
+//	}
 
 	public void loginErrorToast(String Text) throws Throwable {
 
-	MobileElement toastElement = IOsdriver.findElement(By.xpath(
-            String.format("//XCUIElementTypeStaticText[@name='%s']", Text)));
-
 //		MobileElement toastElement = IOsdriver.findElement(By.xpath(
-//				"(//XCUIElementTypeStaticText)[5]"));
+//				"//XCUIElementTypeStaticText[@name='Invalid credentials']"));
+		
+		WebElement toastElement = IOsdriver.findElement(By.xpath(
+				"(//XCUIElementTypeStaticText)[5]"));
 
 		String toastText = toastElement.getText();
-		assertTextValue(toastText, Text);
-	//	softTextPresent(toastText, Text);
+	//	assertTextValue(toastText, Text);
+		softTextPresent(toastText, Text);
 		reportLog("Toast Message: " + toastText);
 		PrintValue("Toast Message: " + toastText);
 	}
@@ -106,7 +105,7 @@ public class LoginMethods extends ExcelRead {
 	public void validateLogin() throws Throwable {
 
 
-		isElementDisplayed("InboxHeader", LocatorPropertiesFile);
+		isElementDisplayed("ConnectHeader", LocatorPropertiesFile);
 		PrintValue("Logged in successfully");
 
 	}

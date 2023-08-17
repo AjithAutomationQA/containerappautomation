@@ -1,5 +1,7 @@
 package containerBCappHooks;
 
+import containerBCapp.Baseclass.CommonUtilities;
+import io.cucumber.java.*;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.testng.annotations.Test;
@@ -8,12 +10,8 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 
 import containerBCapp.ExcelRead.ExcelRead;
-import io.cucumber.java.After;
-import io.cucumber.java.AfterStep;
-import io.cucumber.java.BeforeAll;
-import io.cucumber.java.Scenario;
 
-public class Hooks extends ExcelRead {
+public class Hooks extends CommonUtilities {
 
 
 
@@ -48,7 +46,7 @@ public class Hooks extends ExcelRead {
 
 		byte[] screenshotBytes = IOsdriver.getScreenshotAs(OutputType.BYTES);
 		scenario.attach(screenshotBytes, "image/png", "");
-		//sa.assertAll();
+//		sa.assertAll();
 
 		//		   TakesScreenshot screenShot=(TakesScreenshot)IOsdriver;
 		//	        String base64file=screenShot.getScreenshotAs(OutputType.BASE64);
@@ -72,6 +70,14 @@ public class Hooks extends ExcelRead {
 		//		      e.printStackTrace();
 		//		    }
 
+	}
+
+	@AfterAll
+	public static void afterAll(){
+		service.stop();
+		if(sa != null) {
+			sa.assertAll();
+		}
 	}
 
 }
