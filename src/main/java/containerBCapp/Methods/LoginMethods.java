@@ -28,15 +28,15 @@ public class LoginMethods extends ExcelRead {
 
 	public void loginErrorToast(String Text) throws Throwable {
 
-//		MobileElement toastElement = IOsdriver.findElement(By.xpath(
-//				"//XCUIElementTypeStaticText[@name='Invalid credentials']"));
-		
 		WebElement toastElement = IOsdriver.findElement(By.xpath(
-				"(//XCUIElementTypeStaticText)[5]"));
+				"//XCUIElementTypeStaticText[@name='"+Text+"']"));
+		
+//		WebElement toastElement = IOsdriver.findElement(By.xpath(
+//				"//ios.widget.Toast"));
 
 		String toastText = toastElement.getText();
-	//	assertTextValue(toastText, Text);
-		softTextPresent(toastText, Text);
+		assertTextValue(toastText, Text);
+	//	softTextPresent(toastText, Text);
 		reportLog("Toast Message: " + toastText);
 		PrintValue("Toast Message: " + toastText);
 	}
@@ -105,7 +105,7 @@ public class LoginMethods extends ExcelRead {
 	public void validateLogin() throws Throwable {
 
 
-		isElementDisplayed("ConnectHeader", LocatorPropertiesFile);
+		isElementDisplayed("InboxHeader", LocatorPropertiesFile);
 		PrintValue("Logged in successfully");
 
 	}

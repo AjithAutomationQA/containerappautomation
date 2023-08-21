@@ -18,8 +18,7 @@ import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
@@ -77,8 +76,11 @@ public class CommonUtilities {
 	public static void lauchTheApp() throws Throwable {
 
 		Capabilities capabilities = new Capabilities();
-		service = startServer();
 		capabilities.LaunchIosApp();
+
+//		Capabilities capabilities = new Capabilities();
+//		service = startServer();
+//		capabilities.LaunchIosApp();
 
 	}
 
@@ -134,9 +136,9 @@ public class CommonUtilities {
 
 	public WebElement getMobileElement(String Locator, String locatorfile) throws Throwable {
 
-		WebDriverWait wait = new WebDriverWait(IOsdriver, Duration.ofSeconds(60));
+	//	WebDriverWait wait = new WebDriverWait(IOsdriver, Duration.ofSeconds(60));
 		WebElement element = getElement(Locator, locatorfile);
-		wait.until(ExpectedConditions.visibilityOf(element));
+	//	wait.until(ExpectedConditions.visibilityOf(element));
 		element.isDisplayed();
 		return element;
 

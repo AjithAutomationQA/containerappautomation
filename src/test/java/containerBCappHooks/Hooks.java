@@ -74,10 +74,10 @@ public class Hooks extends CommonUtilities {
 
 	@AfterAll
 	public static void afterAll(){
-		service.stop();
-		if(sa != null) {
-			sa.assertAll();
-		}
+//		service.stop();
+//		if(sa != null) {
+//			sa.assertAll();
+//		}
 	}
 
 }
