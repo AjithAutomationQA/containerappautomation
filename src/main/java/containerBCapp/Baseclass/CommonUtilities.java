@@ -11,11 +11,14 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Properties;
 
+import com.aventstack.extentreports.App;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
+import org.apache.poi.ss.formula.functions.Na;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -98,20 +101,27 @@ public class CommonUtilities {
 		FileLocation = new File(Location);
 		FileReader File = new FileReader(FileLocation);
 		Prop.load(File);
+		WebDriverWait wait = new WebDriverWait(IOsdriver,Duration.ofSeconds(30));
 		LocatorType = Prop.getProperty(Property).split(":")[0];
 		LocatorValue = Prop.getProperty(Property).split(":")[1];
 
-		if (LocatorType.equalsIgnoreCase("accessibility"))
-			return IOsdriver.findElement(AppiumBy.accessibilityId(LocatorValue));
+		switch (LocatorType.toLowerCase()) {
+			case "accessibility":
+//				wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.accessibilityId(LocatorValue)));
+				return IOsdriver.findElement(AppiumBy.accessibilityId(LocatorValue));
 
-		else if (LocatorType.equalsIgnoreCase("xpath"))
-			return IOsdriver.findElement(AppiumBy.xpath(LocatorValue));
+			case "xpath":
+//				wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.xpath(LocatorValue)));
+				return IOsdriver.findElement(AppiumBy.xpath(LocatorValue));
 
-		else if (LocatorType.equalsIgnoreCase("iOSClassChain"))
-			return IOsdriver.findElement(AppiumBy.iOSClassChain(LocatorValue));
+			case "iosclasschain":
+//				wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.iOSClassChain(LocatorValue)));
+				return IOsdriver.findElement(AppiumBy.iOSClassChain(LocatorValue));
 
-		else
-			throw new Exception("Unknown locator type '" + LocatorType + "'");
+			default:
+				throw new Exception("Unknown locator type '" + LocatorType + "'");
+		}
+
 
 	}
 
@@ -268,7 +278,7 @@ public class CommonUtilities {
 		PrintValue("Looking for the given message");
 		while (flag == "False") {
 
-
+			System.out.println("NAME IS = "+ Name);
 			element = ioschain("**/XCUIElementTypeStaticText[`label == \"" + Name + "\"`]");
 			if(element.isDisplayed()) {
 				messageName = element.getText();
@@ -316,7 +326,7 @@ public class CommonUtilities {
 
 	public WebElement ioschain(String inboxMessage) {
 
-		WebElement d = IOsdriver.findElement(MobileBy.iOSClassChain(inboxMessage));
+		WebElement d = IOsdriver.findElement(AppiumBy.iOSClassChain(inboxMessage));
 		return d;
 	}
 

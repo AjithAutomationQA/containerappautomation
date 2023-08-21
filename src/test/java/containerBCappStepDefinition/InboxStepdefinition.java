@@ -285,4 +285,14 @@ public class InboxStepdefinition extends InboxMethods{
 	public void the_trashed_message_should_not_be_displayed_in_the_unread_filter() throws Throwable {
 		trashednotinUnread();
 	}
+
+	@Given("User lands on undefined tab")
+	public void userLandsOnUndefinedTab() throws Throwable {
+		checkUserOnWhichTab();
+	}
+
+	@Then("user clicks on Inbox tab")
+	public void userClicksOnInboxTab() throws Throwable {
+		tapOn_InboxTab();
+	}
 }

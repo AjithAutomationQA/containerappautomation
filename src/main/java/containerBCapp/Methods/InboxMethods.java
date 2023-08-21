@@ -4,19 +4,17 @@ import static io.appium.java_client.touch.LongPressOptions.longPressOptions;
 import static io.appium.java_client.touch.offset.ElementOption.element;
 import static org.testng.Assert.fail;
 
+import java.sql.SQLOutput;
 import java.time.Duration;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.testng.annotations.Test;
 
 import containerBCapp.ExcelRead.ExcelRead;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.TouchAction;
-import io.appium.java_client.ios.IOSDriver;
 
 public class InboxMethods extends ExcelRead {
 
@@ -576,4 +574,35 @@ public class InboxMethods extends ExcelRead {
 
 	}
 
+	public String checkUserOnWhichTab() throws Throwable {
+		WebElement connectTab, inboxTab, settingTab;
+		try{
+			connectTab = getElement("ConnectHeader", LocatorPropertiesFile);
+			System.out.println("On Connect Tab");
+			return "Connect";
+		} catch (Exception e){
+			try {
+				inboxTab = getElement("InboxHeader", LocatorPropertiesFile);
+				System.out.println("On Inbox Tab");
+				return "Inbox";
+			}
+			catch (Exception y){
+				try {
+					settingTab = getElement("SettingHeader", LocatorPropertiesFile);
+					System.out.println("On Setting Tab");
+					return "Settings";
+				} catch (org.openqa.selenium.NoSuchElementException Z){
+					System.out.println("Nop element found");
+				}
+			}
+		}
+		return null;
+	}
+
+
+	public void tapOn_InboxTab() throws Throwable {
+		if(checkUserOnWhichTab()!= "Inbox")
+			tapTheElement("Inbox", LocatorPropertiesFile);
+		isElementDisplayed("InboxHeader", LocatorPropertiesFile);
+	}
 }
