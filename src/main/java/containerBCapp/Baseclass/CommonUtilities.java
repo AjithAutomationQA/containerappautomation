@@ -316,7 +316,7 @@ public class CommonUtilities {
 
 	public WebElement ioschain(String inboxMessage) {
 
-		WebElement d = IOsdriver.findElement(MobileBy.iOSClassChain(inboxMessage));
+		WebElement d = IOsdriver.findElement(AppiumBy.iOSClassChain(inboxMessage));
 		return d;
 	}
 

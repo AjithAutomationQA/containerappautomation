@@ -38,7 +38,7 @@ public class InboxMethods extends ExcelRead {
 	}
 
 	public void verifyMessageDetails() throws Throwable {
-
+		readName = readName.toLowerCase();
 		WebElement findElementByName = findElementByName(readName);
 		String text2 = findElementByName.getText();
 		assertTextValue(readName, text2);
@@ -78,7 +78,7 @@ public class InboxMethods extends ExcelRead {
 	public void archiveSwipeByText() throws Throwable {
 
 		//WebElement FirstMessage = getMobileElement("Inbox.FirstMessage", LocatorPropertiesFile);
-		messageName = swipeRightToLeft(swipeMessageName,"down");
+		messageName = swipeRightToLeft(readName,"down");
 		try {
 			tapTheElement("Inbox.ArchiveIcon", LocatorPropertiesFile);
 		}
