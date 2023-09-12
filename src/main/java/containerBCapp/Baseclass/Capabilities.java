@@ -1,6 +1,7 @@
 package containerBCapp.Baseclass;
 
 import java.net.URL;
+import java.time.Duration;
 
 import io.appium.java_client.ios.options.XCUITestOptions;
 
@@ -33,6 +34,7 @@ public class Capabilities extends CommonUtilities {
 		options.setCapability("xcodeOrgId", xcodeOrgId);
 		options.setShowXcodeLog(true);
 		IOsdriver = new IOSDriver(new URL("http://127.0.0.1:4723/"), options);
+		IOsdriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(60));
 	}
 
 }

@@ -6,6 +6,7 @@ import io.cucumber.testng.CucumberOptions;
 @CucumberOptions(plugin = { 
 "rerun:target/FailedScenarios.txt", "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"},
 
+
 tags = "@Inbox1",
 
 features = {"FeatureFiles"},  

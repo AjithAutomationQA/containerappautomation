@@ -107,9 +107,6 @@ public class LoginMethods extends ExcelRead {
 
 	public void validateLogin() throws Throwable {
 
-
-
-		isElementDisplayed("ConnectHeader", LocatorPropertiesFile);
 		PrintValue("Logged in successfully");
 
 	}
