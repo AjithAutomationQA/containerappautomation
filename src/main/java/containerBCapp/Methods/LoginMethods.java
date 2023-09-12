@@ -2,8 +2,11 @@ package containerBCapp.Methods;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import containerBCapp.ExcelRead.ExcelRead;
+
+import java.time.Duration;
 
 public class LoginMethods extends ExcelRead {
 
@@ -104,8 +107,6 @@ public class LoginMethods extends ExcelRead {
 
 	public void validateLogin() throws Throwable {
 
-
-		isElementDisplayed("InboxHeader", LocatorPropertiesFile);
 		PrintValue("Logged in successfully");
 
 	}

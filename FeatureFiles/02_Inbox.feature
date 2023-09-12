@@ -1,12 +1,18 @@
 @Regression
 Feature: To verify the inbox feature
 
-  @Inbox 
+
+  @Inbox1
+    Scenario: To verify use is on Inbox tab
+      Given User lands on undefined tab
+      Then user clicks on Inbox tab
+
+  @Inbox1
   Scenario: To verify user can tap and view the message details
     Given User taps on a message
     Then User should see the message detailed view
 
-  @Inbox 
+  @Inbox1
   Scenario: To swipe and archive a message from inbox
     Given User swipes the message to archive from the inbox
     And User goes to archive tab
