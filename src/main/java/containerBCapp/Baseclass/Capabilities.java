@@ -34,8 +34,7 @@ public class Capabilities extends CommonUtilities {
 		options.setCapability("xcodeOrgId", xcodeOrgId);
 		options.setShowXcodeLog(true);
 		IOsdriver = new IOSDriver(new URL("http://0.0.0.0:4723/wd/hub"), options);
-//		IOsdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		IOsdriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		IOsdriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
 
 	}

@@ -59,12 +59,78 @@ public class ConnectStepdefinition extends ConnectMethods {
 	public void user_taps_on_the_send_button() throws Throwable {
 		
 		tap_SendButton();
+		verify_ChatSentTime();
 	}
 	
 	@Then("The message should be sent successfully")
 	public void the_message_should_be_sent_successfully() throws Throwable {
-		
-		verify_SentMessage();
+		verify_ChatSentTick();
 	}
 
+	//////////////////////////////message verify done /////////////////////////////////////
+
+	@Given("The user long press the recent message")
+	public void the_user_long_press_the_recent_message() throws Throwable {
+
+		longPressMessage();
+	}
+
+	@When("User taps on the delete button from the bottom sheet")
+	public void user_taps_on_the_delete_button_from_the_bottom_sheet() throws Throwable {
+		tapOnTheDeleteButton();
+	}
+
+	@Then("The message should be deleted successfully")
+	public void the_message_should_be_deleted_successfully() throws Throwable {
+		verifyDeletedMessage();
+
+	}
+
+	//////////////////////////////message delete done /////////////////////////////////////
+	@When("User taps on the edit button from the bottom sheet")
+	public void user_taps_on_the_edit_button_from_the_bottom_sheet() throws Throwable {
+
+		tapOnTheEditButton();
+	}
+	@When("User edits the message and tap on the save button")
+	public void user_edits_the_message_and_tap_on_the_save_button() throws Throwable {
+
+		editTheMessage();
+	}
+
+	@Then("The message should be edited successfully")
+	public void the_message_should_be_edited_successfully() throws Throwable {
+
+		verifyEditedMessage();
+	}
+
+	//////////////////////////////message edit done /////////////////////////////////////
+
+	@When("User taps on the pin button from the bottom sheet")
+	public void user_taps_on_the_pin_button_from_the_bottom_sheet() throws Throwable {
+		pinTheMessage();
+	}
+
+	@Then("The message should be pinned successfully")
+	public void the_message_should_be_pinned_successfully() throws Throwable {
+
+		verifyPinnedMessage();
+	}
+
+	@When("User taps on the unpin button from the bottom sheet")
+	public void user_taps_on_the_unpin_button_from_the_bottom_sheet()  throws Throwable {
+
+		unPinTheMessage();
+	}
+
+	@Then("The message should be unpinned successfully")
+	public void the_message_should_be_unpinned_successfully()  throws Throwable {
+		verifyUnpinMessage();
+	}
+
+	@When("User taps on the copy and send the message")
+	public void user_taps_on_the_copy_and_send_the_message() throws Throwable {
+
+		copyandPasteMessage();
+	}
 }

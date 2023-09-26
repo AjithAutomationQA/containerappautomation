@@ -12,8 +12,8 @@ public class InboxStepdefinition extends InboxMethods{
 	@Given("User taps on a message")
 	public void user_taps_on_a_message() throws Throwable {
 
-		tapOnTheMessage();
 
+		tapOnTheMessage();
 	}
 
 
@@ -27,9 +27,8 @@ public class InboxStepdefinition extends InboxMethods{
 
 	@Given("User swipes the message to archive from the inbox")
 	public void user_swipes_the_message_to_archive_from_the_inbox() throws Throwable {
-		archiveSwipeByText();
-		//archiveFirstreadMessage();
-		//messagescript();
+
+		archiveSwipe();
 	}
 
 	@And("User goes to archive tab")
@@ -38,17 +37,17 @@ public class InboxStepdefinition extends InboxMethods{
 		tapArchiveFromMenu();
 	}
 
-	@Then("User should find that messsage in the archive tab")
-	public void user_should_find_that_messsage_in_the_archive_tab() throws Throwable {
+	@Then("User should find that message in the archive tab")
+	public void user_should_find_that_message_in_the_archive_tab() throws Throwable {
 
-		validateByTextInArchiveTab();
+		validateMessageInArchiveTab();
 	}
 
 
 	@Given("User longpress a message from the inbox")
 	public void user_longpress_a_message_from_the_inbox() throws Throwable {
 
-		longPressTheMessageByText();
+		longPressTheMessage();
 	}
 
 
@@ -76,7 +75,8 @@ public class InboxStepdefinition extends InboxMethods{
 
 		toastMessage("Message moved to Archive");
 	}
-	
+
+
 //////////////////////////////Archive done /////////////////////////////////////
 	
 	@Given("Tap on the feedback button from the bottom sheet")
@@ -115,11 +115,11 @@ public class InboxStepdefinition extends InboxMethods{
 	@When("User swipes the message to unarchive from the archive tab")
 	public void user_swipes_the_message_to_unarchive_from_the_archive_tab() throws Throwable {
 
-		unArchiveSwipeByText();
+		unArchiveSwipe();
 	}
 
-	@Then("User should find that messsage in the inbox tab")
-	public void user_should_find_that_messsage_in_the_inbox_tab() throws Throwable {
+	@Then("User should find that message in the inbox tab")
+	public void user_should_find_that_message_in_the_inbox_tab() throws Throwable {
 		
 		validateInboxTabByText();
 	}
@@ -151,8 +151,8 @@ public class InboxStepdefinition extends InboxMethods{
 		toastMessage("Message moved to Trash");
 	}
 
-	@Then("User should find that messsage in the trash tab")
-	public void user_should_find_that_messsage_in_the_trash_tab() throws Throwable {
+	@Then("User should find that message in the trash tab")
+	public void user_should_find_that_message_in_the_trash_tab() throws Throwable {
 
 		validateInTrashTabByText();
 	}
@@ -231,6 +231,7 @@ public class InboxStepdefinition extends InboxMethods{
 	public void user_reads_the_first_message() throws Throwable {
 
 		makeReadMessage() ;
+		getMessageName();
 	}
 	@When("User longpress and unread the first message")
 	public void user_longpress_and_unread_the_first_message()throws Throwable {
@@ -240,8 +241,7 @@ public class InboxStepdefinition extends InboxMethods{
 	}
 	@Then("The message should be marked as unread")
 	public void the_message_should_be_marked_as_unread() throws Throwable {
-		assertMessageName();
-
+		assertMessageName(messageName, retrievedMessageName);
 	}
 
 	@Then("The unread message should displayed")

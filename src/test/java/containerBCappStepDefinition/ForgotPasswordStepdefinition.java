@@ -17,6 +17,8 @@ public class ForgotPasswordStepdefinition extends ForgotPasswordMethods {
 
 		enterInValidEmail();
 
+	
+
 	}
 	
 	@Then("A toast with a waring message should be displayed")
