@@ -104,6 +104,12 @@ public class LoginMethods extends ExcelRead {
 
 	public void validateLogin() throws Throwable {
 
+		try{
+			tapTheElement("Allow", LocatorPropertiesFile);
+		}
+		catch (Exception e){
+
+		}
 
 		isElementDisplayed("InboxHeader", LocatorPropertiesFile);
 		PrintValue("Logged in successfully");

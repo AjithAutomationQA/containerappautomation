@@ -64,16 +64,25 @@ public class ConnectStepdefinition extends ConnectMethods {
 	
 	@Then("The message should be sent successfully")
 	public void the_message_should_be_sent_successfully() throws Throwable {
-		verify_ChatSentTick();
+		verifyMessgesent();
+
 	}
 
 	//////////////////////////////message verify done /////////////////////////////////////
+
+
 
 	@Given("The user long press the recent message")
 	public void the_user_long_press_the_recent_message() throws Throwable {
 
 		longPressMessage();
 	}
+	@Then("the bottom sheet should appear")
+	public void the_bottom_sheet_should_appear() throws Throwable {
+
+		bottomSheet();
+	}
+
 
 	@When("User taps on the delete button from the bottom sheet")
 	public void user_taps_on_the_delete_button_from_the_bottom_sheet() throws Throwable {
@@ -83,7 +92,6 @@ public class ConnectStepdefinition extends ConnectMethods {
 	@Then("The message should be deleted successfully")
 	public void the_message_should_be_deleted_successfully() throws Throwable {
 		verifyDeletedMessage();
-
 	}
 
 	//////////////////////////////message delete done /////////////////////////////////////
@@ -131,6 +139,38 @@ public class ConnectStepdefinition extends ConnectMethods {
 	@When("User taps on the copy and send the message")
 	public void user_taps_on_the_copy_and_send_the_message() throws Throwable {
 
-		copyandPasteMessage();
+		copyAndPasteMessage();
 	}
+
+	@Then("The copied message should be sent successfully")
+	public void the_copied_message_should_be_sent_successfully() throws Throwable {
+		verifyCopyAndSendMessage();
+
+	}
+
+	//////////////////////////////message long press done /////////////////////////////////////
+	@Given("User taps on the attachment icon")
+	public void user_taps_on_the_attachment_icon() throws Throwable {
+
+		tapAttachmentButton();
+	}
+
+	@And("user taps on the useCamera button and click a photo")
+	public void user_taps_on_the_use_camera_button_and_click_a_photo() throws Throwable {
+
+		clickPhoto();
+	}
+
+	@Then("The attachment should be sent successfully")
+	public void the_attachment_should_be_sent_successfully() throws Throwable {
+		verify_ChatSentTime();
+		verify_ChatSentTick();
+	}
+
+	@Given("user taps on the FromFiles button and select a attachment")
+	public void user_taps_on_the_from_files_button_and_select_a_attachment() throws Throwable {
+
+		sendAttachments();
+	}
+
 }

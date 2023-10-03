@@ -43,7 +43,7 @@ Feature: To verify the login feature
     #And Taps on the skip button to get started
     #Then User should be logged in successfully@test
 
-  @Login 
+  @Logins
   Scenario: To verify the login by tapping next button
     Given User enters the valid email and valid password
     And Taps on the login button

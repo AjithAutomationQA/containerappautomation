@@ -16,28 +16,19 @@ Feature: To verify the chat in the connect tab
     And User opens a chat
     Then The respective UI elements should be displayed
 
-  @Connect
-  Scenario: To verify send button is disabled when input bar is empty
-    Given User taps on the connect tab
-    And User opens a chat
-    Then The send button should be disabled
+
 
   @Connect
-  Scenario: To verify user cannot send empty message
-    Given User taps on the connect tab
-    And User opens a chat
-    When User enters space in the input bar
-    Then The send button should be disabled
-
-  @Connect
-  Scenario: To verify user can send a message successfully then long press and perform actions from the bottom sheet
+  Scenario: To verify user can long press and perform actions from the bottom sheet
 
     Given User taps on the connect tab
     And User opens a chat
     And User enters the message in the input bar
     And The send button should be enabled
     When User taps on the send button
-    Then The message should be sent successfully
+
+    And The user long press the recent message
+    Then the bottom sheet should appear
 
     And The user long press the recent message
     When User taps on the pin button from the bottom sheet
@@ -54,11 +45,55 @@ Feature: To verify the chat in the connect tab
 
     And The user long press the recent message
     When User taps on the copy and send the message
-    Then The message should be sent successfully
+    Then The copied message should be sent successfully
 
     And The user long press the recent message
     When User taps on the delete button from the bottom sheet
     Then The message should be deleted successfully
+
+  @Connect
+  Scenario: To verify send button is disabled when input bar is empty
+    Given User taps on the connect tab
+    And User opens a chat
+    Then The send button should be disabled
+
+  @Connect
+  Scenario: To verify user cannot send empty message
+    Given User taps on the connect tab
+    And User opens a chat
+    When User enters space in the input bar
+    Then The send button should be disabled
+
+
+  @Connect
+  Scenario: To verify user can send a message successfully
+    Given User taps on the connect tab
+    And User opens a chat
+    And User enters the message in the input bar
+    And The send button should be enabled
+    When User taps on the send button
+    Then The message should be sent successfully
+
+  @Connect
+  Scenario: To verify user can send an image using useCamera option
+    Given User taps on the connect tab
+    And User opens a chat
+    And User taps on the attachment icon
+    And user taps on the useCamera button and click a photo
+    And The send button should be enabled
+    When User taps on the send button
+    Then The attachment should be sent successfully
+
+
+  @Connect
+  Scenario: To verify user can send an files using FromFiles option
+    Given User taps on the connect tab
+    And User opens a chat
+    And User taps on the attachment icon
+    And user taps on the FromFiles button and select a attachment
+    Then The attachment should be sent successfully
+
+
 
 #
 #  @Connect
