@@ -1,7 +1,7 @@
 @Regression
 Feature: To verify the forgot password feature
 
-  @ForgotPassword
+  @ForgotPassword @Smoke
   Scenario: To verify forgot password with invalid email format
     Given User taps on the forgot password button
     And Enters the invalid email

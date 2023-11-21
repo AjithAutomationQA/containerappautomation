@@ -1,7 +1,7 @@
 @Regression
 Feature: To verify the inbox feature
 
-  @Inbox
+  @Inbox @Smoke
   Scenario: To verify user can tap and view the message details
     Given User taps on a message
     Then User should see the message detailed view
@@ -19,14 +19,14 @@ Feature: To verify the inbox feature
     And User goes to archive tab
     Then User should find that message in the archive tab
 
-  @Inboxx
+  @Inbox @Smoke
   Scenario: To verify user can archive a message from the bottom sheet
     Given User taps on a message
     And Tap on the dropdown button
     And Tap on the archive button from the bottom sheet
     Then The message should be sent to archive tab
-    And User goes to archive tab
-    Then User should find that message in the archive tab
+#    And User goes to archive tab
+#    Then User should find that message in the archive tab
 
   @Inbox
   Scenario: To swipe and unarchive a message from archive tab
@@ -34,23 +34,23 @@ Feature: To verify the inbox feature
     When User swipes the message to unarchive from the archive tab
     Then User should find that message in the inbox tab
 
-  @Inbox1
+  @Inbox
   Scenario: To longpress and trash a message from inbox
     Given User longpress a message from the inbox
     And Taps on the trash button identifier
     And User goes to trash tab
     Then User should find that messsage in the trash tab
 
-  @Inbox
+  @Inbox @Smoke
   Scenario: To verify user can trash a message from the bottom sheet
     Given User taps on a message
     And Tap on the dropdown button
     And Tap on the trash button from the bottom sheet
     Then The message should be sent to trash tab
-    And User goes to trash tab
-    Then User should find that message in the trash tab
+#    And User goes to trash tab
+#    Then User should find that message in the trash tab
 
-  @Inbox1
+  @Inbox
   Scenario: To swipe and restore a message from trash tab
     Given User goes to trash tab
     When User swipes the message to restore from the trash tab

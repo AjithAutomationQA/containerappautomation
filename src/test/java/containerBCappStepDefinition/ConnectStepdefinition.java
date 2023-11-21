@@ -172,5 +172,26 @@ public class ConnectStepdefinition extends ConnectMethods {
 
 		sendAttachments();
 	}
+//////////////////////////////message long press done /////////////////////////////////////
 
-}
+	@Given("user swipes the first chat from the chat list")
+	public void user_swipes_the_first_chat_from_the_chat_list()  throws Throwable {
+		//tapOn_Skip();
+		tapOn_ConnectTab();
+		readTheFirstChat();
+		swipeTheChat();
+	}
+	@Then("the chat should be removed from the list")
+	public void the_chat_should_be_removed_from_the_list() throws Throwable {
+
+		verify_ChatName();
+	}
+
+	@Given("the active reminder icon should be shown in the recent list")
+	public void the_active_reminder_icon_should_be_shown_in_the_recent_list() throws Throwable {
+		tapOn_Skip();
+		tapOn_ConnectTab();
+		verify_ReminderInRecentChat();
+	}
+
+	}

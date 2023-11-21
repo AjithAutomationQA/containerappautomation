@@ -10,11 +10,20 @@ Feature: To verify the chat in the connect tab
 #    When User taps on the send button
 #    Then The message should be sent successfully
 
-  @Connect
+  @Connect @Smoke
   Scenario: To verify UI elements in the chat conversation view
     Given User taps on the connect tab
     And User opens a chat
     Then The respective UI elements should be displayed
+
+  @Connect @new
+  Scenario: To verify reminder icon is shown in the recent chat list
+    Given the active reminder icon should be shown in the recent list
+
+  @Connect @new
+  Scenario: To swipe and remove a message from the chat recent list
+    Given user swipes the first chat from the chat list
+    Then the chat should be removed from the list
 
 
 
@@ -51,13 +60,13 @@ Feature: To verify the chat in the connect tab
     When User taps on the delete button from the bottom sheet
     Then The message should be deleted successfully
 
-  @Connect
+  @Connect @Smoke
   Scenario: To verify send button is disabled when input bar is empty
     Given User taps on the connect tab
     And User opens a chat
     Then The send button should be disabled
 
-  @Connect
+  @Connect @Smoke
   Scenario: To verify user cannot send empty message
     Given User taps on the connect tab
     And User opens a chat
@@ -66,13 +75,18 @@ Feature: To verify the chat in the connect tab
 
 
   @Connect
-  Scenario: To verify user can send a message successfully
+  Scenario:  To verify user can send a message successfully
     Given User taps on the connect tab
     And User opens a chat
     And User enters the message in the input bar
     And The send button should be enabled
     When User taps on the send button
     Then The message should be sent successfully
+
+  @Connect
+  Scenario:  To verify user can swipe and remove a chat from the list
+    Given user swipe the first chat in the list
+    Then the chat should be removed from the list
 
   @Connect
   Scenario: To verify user can send an image using useCamera option
@@ -86,7 +100,7 @@ Feature: To verify the chat in the connect tab
 
 
   @Connect
-  Scenario: To verify user can send an files using FromFiles option
+  Scenario: To verify user can send a file using FromFiles option
     Given User taps on the connect tab
     And User opens a chat
     And User taps on the attachment icon

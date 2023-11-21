@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import io.appium.java_client.AppiumBy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
@@ -125,9 +126,11 @@ public class InboxMethods extends ExcelRead {
 
     //<This method is to verify the message name in the Archive tab>
     public void validateMessageInArchiveTab() throws Throwable {
-
-     //   WebElement archivedMessage = scroll(messageName);
-      //  assertTrue(archivedMessage.isDisplayed());
+        String xpathExpression = String.format("//XCUIElementTypeStaticText[contains(@label, '%s')]", messageName);
+        PrintValue(xpathExpression);
+        WebElement   element = IOsdriver.findElement(AppiumBy.xpath(xpathExpression));
+        scrollUntilElement(element);
+       // assertTrue(archivedMessage.isDisplayed());
         PrintValue("Message archived is: " + messageName);
 
         tapTheElement("Inbox.BackArrow", LocatorPropertiesFile);

@@ -11,9 +11,16 @@ import java.util.Date;
 public class ConnectMethods extends ExcelRead {
 
     WebElement text;
+  String  before_ChatName;
+  String  after_ChatName;
+
+  public void tapOn_Skip() throws Throwable {
+
+      tapTheElement("Skip", LocatorPropertiesFile); // remove it
+  }
 
     public void tapOn_ConnectTab() throws Throwable {
-
+       // tapOn_Skip();
         tapTheElement("Connect", LocatorPropertiesFile);
         isElementDisplayed("ConnectHeader", LocatorPropertiesFile);
 
@@ -24,13 +31,11 @@ public class ConnectMethods extends ExcelRead {
         PrintValue("chat name" +chatName);
         tapTheElement("Connect.Chat", LocatorPropertiesFile);
 
-
-
     }
 
     public void verify_ChatUI() throws Throwable {
 
-        isElementDisplayed("Inbox.BackArrow", LocatorPropertiesFile);
+        isElementDisplayed("Connect.BackArrow", LocatorPropertiesFile);
         isElementDisplayed("Connect.Type_a_Message", LocatorPropertiesFile);
         isElementDisplayed("Connect.chat_at_mention_icon", LocatorPropertiesFile);
         isElementDisplayed("Connect.chat_attachment_icon", LocatorPropertiesFile);
@@ -51,10 +56,10 @@ public class ConnectMethods extends ExcelRead {
         try {
             isElementDisplayed("Connect.chat_send_inactive_icon", LocatorPropertiesFile);
             PrintValue("Send button is disabled when input is empty");
-            tapTheElement("Inbox.BackArrow", LocatorPropertiesFile);
+            tapTheElement("Connect.BackArrow", LocatorPropertiesFile);
         } catch (Exception e) {
             PrintError("Send button is enabled");
-            tapTheElement("Inbox.BackArrow", LocatorPropertiesFile);
+            tapTheElement("Connect.BackArrow", LocatorPropertiesFile);
         }
 
 
@@ -317,6 +322,47 @@ public class ConnectMethods extends ExcelRead {
         tapTheElement("Connect.FromFiles", LocatorPropertiesFile);
         tapTheElement("Connect.Attachments", LocatorPropertiesFile);
         PrintValue("Attachment selected");
+    }
+
+
+    public void readTheFirstChat() throws Throwable {
+        try {
+            WebElement FirstRow = getElement("Connect.FirstRow", LocatorPropertiesFile);
+
+            FirstRow.click();
+            tapTheElement("Connect.BackArrow", LocatorPropertiesFile);
+        }
+        catch (Exception e){
+
+        }
+
+    }
+    public void swipeTheChat() throws Throwable {
+
+
+        WebElement firstChat = getElement("Connect.FirstChat", LocatorPropertiesFile);
+       before_ChatName =  firstChat.getText();
+         swipeR2LusingLocator(firstChat);
+        try {
+            tapTheElement("Connect.delete_on_swipe", LocatorPropertiesFile);
+        } catch (Exception e) {
+        }
+
+    }
+
+    public void verify_ChatName() throws Throwable {
+
+        readTheFirstChat();
+        WebElement firstChat = getElement("Connect.FirstChat", LocatorPropertiesFile);
+         after_ChatName =  firstChat.getText();
+         assertTextFalse(before_ChatName,after_ChatName);
+    }
+
+    public void verify_ReminderInRecentChat() throws Throwable {
+
+        isElementDisplayed("Connect.ReminderRecent", LocatorPropertiesFile);
+        PrintValue("Active reminder in recent chat is displayed");
+
     }
 
 

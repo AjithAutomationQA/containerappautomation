@@ -1,4 +1,4 @@
-@Regression
+@Regression @Smoke
 Feature: To verify the logout feature
 
   @Logout
@@ -10,6 +10,7 @@ Feature: To verify the logout feature
 
   @Logout
   Scenario: To verify the logout
+    Given User taps on the settings button
     And User taps on the logout button
     And taps yes logout button
     Then User should be logged out successfully

@@ -1,13 +1,13 @@
 @Regression
 Feature: To verify the unread feature in inbox
 
-  @unread 
+  @unread @Smoke
   Scenario: To filter the unread messages
     Given User taps on the filter dropdown and selects unread
     When User taps on the applyFilter button
     Then Only unread messages should be displayed
 
-  @unread
+  @unread @Smoke
   Scenario: To verify no of unread messages in inbox and unread filter are same
     Given User verifies no of unread messages in inbox and unread filter are same
 

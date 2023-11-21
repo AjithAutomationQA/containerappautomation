@@ -9,21 +9,22 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.time.Duration;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Properties;
 
 import com.github.javafaker.Faker;
 import io.appium.java_client.AppiumBy;
-import io.appium.java_client.MobileBy;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 
+import org.openqa.selenium.interactions.Pause;
+import org.openqa.selenium.interactions.PointerInput;
+import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -425,6 +426,26 @@ public class CommonUtilities {
     }
 
 
+    public WebElement scrollUntilElement(WebElement Ele) throws Throwable {
+        while(!isElementDisplayed(Ele)) {
+            Dimension size =  IOsdriver.manage().window().getSize();
+            int startX = size.getWidth() / 2;
+            int startY = size.getHeight() / 2;
+            int endX = startX;
+            int endY = (int) (size.getHeight() * 0.25);
+            PointerInput finger1 =  new PointerInput(PointerInput.Kind.TOUCH, "finger1");
+            Sequence sequence = new Sequence(finger1, 1)
+                    .addAction(finger1.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), startX, startY))
+                    .addAction(finger1.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
+                    .addAction(new Pause(finger1, Duration.ofMillis(200)))
+                    .addAction(finger1.createPointerMove(Duration.ofMillis(100), PointerInput.Origin.viewport(), endX, endY))
+                    .addAction(finger1.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+            IOsdriver.perform(Collections.singletonList(sequence));
+        }
+        return Ele;
+    }
+
+
     public String longPress(WebElement element) {
 
         String messageName = null;
@@ -452,9 +473,12 @@ public class CommonUtilities {
     public void killAndRelaunch() throws Throwable {
         IOsdriver.terminateApp(ReadProperties("bundleId", AppPropertiesFile));
         IOsdriver.launchApp();
+        try {
+            tapTheElement("Skip", LocatorPropertiesFile);
+        } catch (Exception e) {
 
 
-    }
+        }
+    }}
 
 
-}
