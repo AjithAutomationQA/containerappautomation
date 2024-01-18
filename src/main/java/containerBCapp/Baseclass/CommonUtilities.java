@@ -83,7 +83,7 @@ public class CommonUtilities {
     public static void lauchTheApp() throws Throwable {
 
         Capabilities capabilities = new Capabilities();
-        capabilities.LaunchIosApp();
+        capabilities.launchRealDevice();
 
 //		Capabilities capabilities = new Capabilities();
 //		service = startServer();
@@ -91,22 +91,20 @@ public class CommonUtilities {
 
     }
 
-    public static String ReadProperties(String Property, String Location) throws Throwable {
+    public static String ReadProperties(String Property) throws Throwable {
 
         Prop = new Properties();
-        File FileLocation = new File(Location);
-        FileReader ReadFile = new FileReader(FileLocation);
-        Prop.load(ReadFile);
+        FileReader locators = new FileReader("src/test/resources/Properties/Xpath.properties");
+        FileReader appProp = new FileReader("src/test/resources/Properties/App.Properties");
+        Prop.load(locators);
+        Prop.load(appProp);
         return Prop.getProperty(Property);
     }
 
-    public WebElement getElement(String Property, String Location) throws Throwable {
-
+    public WebElement getElement(String Property) throws Throwable {
+        ReadProperties(Property);
         String LocatorType, LocatorValue;
-        Properties Prop = new Properties();
-        FileLocation = new File(Location);
-        FileReader File = new FileReader(FileLocation);
-        Prop.load(File);
+
         LocatorType = Prop.getProperty(Property).split(":")[0];
         LocatorValue = Prop.getProperty(Property).split(":")[1];
 
@@ -141,19 +139,19 @@ public class CommonUtilities {
 //
 //	}
 
-    public WebElement getMobileElement(String Locator, String locatorfile) throws Throwable {
+    public WebElement getMobileElement(String Locator) throws Throwable {
 
         WebDriverWait wait = new WebDriverWait(IOsdriver, Duration.ofSeconds(20));
-        WebElement element = getElement(Locator, locatorfile);
+        WebElement element = getElement(Locator);
         wait.until(ExpectedConditions.visibilityOf(element));
         element.isDisplayed();
         return element;
 
     }
 
-    public WebElement isElementDisplayed(String Locator, String locatorfile) throws Throwable {
+    public WebElement isElementDisplayed(String Locator) throws Throwable {
 
-        WebElement element = getMobileElement(Locator, locatorfile);
+        WebElement element = getMobileElement(Locator);
         Assert.assertTrue(element.isDisplayed());
         return element;
     }
@@ -171,26 +169,33 @@ public class CommonUtilities {
         return false;
     }
 
-    public WebElement tapTheElement(String Locator, String locatorfile) throws Throwable {
-        WebElement element = getMobileElement(Locator, locatorfile);
+    public WebElement isElementDisabled(String Locator) throws Throwable {
+
+        WebElement element = getMobileElement(Locator);
+        Assert.assertFalse(element.isEnabled());
+        return element;
+    }
+
+    public WebElement tapTheElement(String Locator) throws Throwable {
+        WebElement element = getMobileElement(Locator);
         element.click();
         return element;
     }
 
-    public void sendKey(String Locator, String locatorfile, String name) throws Throwable {
-        WebElement element = getMobileElement(Locator, locatorfile);
+    public void sendKey(String Locator, String name) throws Throwable {
+        WebElement element = getMobileElement(Locator);
         element.click();
         element.sendKeys(name);
     }
 
-    public void clearData(String Locator, String locatorfile) throws Throwable {
-        WebElement element = getMobileElement(Locator, locatorfile);
+    public void clearData(String Locator) throws Throwable {
+        WebElement element = getMobileElement(Locator);
         element.click();
         element.clear();
     }
 
-    public String getText(String Locator, String locatorfile) throws Throwable {
-        WebElement element = getMobileElement(Locator, locatorfile);
+    public String getText(String Locator) throws Throwable {
+        WebElement element = getMobileElement(Locator);
         String text = element.getText();
         return text;
     }
@@ -471,10 +476,10 @@ public class CommonUtilities {
     }
 
     public void killAndRelaunch() throws Throwable {
-        IOsdriver.terminateApp(ReadProperties("bundleId", AppPropertiesFile));
+        IOsdriver.terminateApp(ReadProperties("bundleId"));
         IOsdriver.launchApp();
         try {
-            tapTheElement("Skip", LocatorPropertiesFile);
+            tapTheElement("Skip");
         } catch (Exception e) {
 
 

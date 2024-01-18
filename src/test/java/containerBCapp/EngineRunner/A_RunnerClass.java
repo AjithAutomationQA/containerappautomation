@@ -6,13 +6,12 @@ import io.cucumber.testng.CucumberOptions;
 @CucumberOptions(plugin = { 
 "rerun:target/FailedScenarios.txt", "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"},
 
-tags = "@new",
+tags = "@Login",
 
 features = {"FeatureFiles"},  
 glue = {"containerBCappStepDefinition", "containerBCappHooks"}, dryRun = false
 
-
-		)
+)
 
 public class A_RunnerClass extends AbstractTestNGCucumberTests {
 

@@ -9,7 +9,7 @@ public class LoginMethods extends ExcelRead {
 
 	public void loginDisabled() throws Throwable {
 
-		WebElement loginButton = getMobileElement("loginxpath", LocatorPropertiesFile);
+		WebElement loginButton = getMobileElement("loginxpath");
 		boolean status = loginButton.isEnabled();
 		Assert.assertEquals(status, false);
 		PrintValue("Login button is disabled");
@@ -19,10 +19,10 @@ public class LoginMethods extends ExcelRead {
 	
 //	public void enterInvalidCredentials() throws Throwable {
 //		testData();
-//		sendKey("Login.Email", LocatorPropertiesFile, inValidEmailID);
+//		sendKey("Login.Email", inValidEmailID);
 //		reportLog("Entered email: " + inValidEmailID);
 //
-//		sendKey("Login.Password", LocatorPropertiesFile, inValidpassword);
+//		sendKey("Login.Password", inValidpassword);
 //		reportLog("Entered password: " + inValidpassword);
 //	}
 
@@ -43,27 +43,27 @@ public class LoginMethods extends ExcelRead {
 
 	public void clearCredentials() throws Throwable {
 
-//		clearData("AfterEmail", LocatorPropertiesFile);
-//		clearData("AfterPassword", LocatorPropertiesFile);
+//		clearData("AfterEmail");
+//		clearData("AfterPassword");
 		killAndRelaunch();
 	}
 
 //	public void enterTheCredentials() throws Throwable {
 //		testData();
-//		sendKey("Login.Email", LocatorPropertiesFile, validEmailID);
+//		sendKey("Login.Email", validEmailID);
 //		reportLog("Entered email: " + validEmailID);
 //
-//		sendKey("Login.Password", LocatorPropertiesFile, validpassword);
+//		sendKey("Login.Password", validpassword);
 //		reportLog("Entered password: " + validpassword);
 //
 //	}
 	
 	public void enterTheCredentials(String Username, String Password) throws Throwable {
 		
-		sendKey("Login.Email", LocatorPropertiesFile, Username);
+		sendKey("Login.Email", Username);
 		reportLog("Entered email: " + Username);
 
-		sendKey("Login.Password", LocatorPropertiesFile, Password);
+		sendKey("Login.Password", Password);
 		reportLog("Entered password: " + Password);
 
 	}
@@ -71,7 +71,7 @@ public class LoginMethods extends ExcelRead {
 
 	public void clickLoginButton() throws Throwable {
 
-		tapTheElement("Login.LoginButton", LocatorPropertiesFile);
+		tapTheElement("Login.LoginButton");
 
 	}
 
@@ -81,11 +81,11 @@ public class LoginMethods extends ExcelRead {
 
 		try {
 
-			tapTheElement("Login.Next", LocatorPropertiesFile);
-			tapTheElement("Login.Next", LocatorPropertiesFile);
-			tapTheElement("Login.Next", LocatorPropertiesFile);
-			tapTheElement("Login.Next", LocatorPropertiesFile);
-			tapTheElement("Login.Getstarted", LocatorPropertiesFile);
+			tapTheElement("Login.Next");
+			tapTheElement("Login.Next");
+			tapTheElement("Login.Next");
+			tapTheElement("Login.Next");
+			tapTheElement("Login.Getstarted");
 		}catch (Exception e) {
 			PrintValue("Not a first time login");
 		}
@@ -95,7 +95,7 @@ public class LoginMethods extends ExcelRead {
 	public void tapSkipButton() throws Throwable {
 
 		try {
-			tapTheElement("Login.Skip", LocatorPropertiesFile);
+			tapTheElement("Login.Skip");
 		}
 		catch (Exception e) {
 			PrintValue("Not a first time login");
@@ -105,13 +105,13 @@ public class LoginMethods extends ExcelRead {
 	public void validateLogin() throws Throwable {
 
 		try{
-			tapTheElement("Allow", LocatorPropertiesFile);
+			tapTheElement("Allow");
 		}
 		catch (Exception e){
 
 		}
 
-		isElementDisplayed("InboxHeader", LocatorPropertiesFile);
+		isElementDisplayed("InboxHeader");
 		PrintValue("Logged in successfully");
 
 	}

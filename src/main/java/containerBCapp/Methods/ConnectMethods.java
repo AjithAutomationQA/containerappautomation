@@ -16,37 +16,37 @@ public class ConnectMethods extends ExcelRead {
 
   public void tapOn_Skip() throws Throwable {
 
-      tapTheElement("Skip", LocatorPropertiesFile); // remove it
+      tapTheElement("Skip"); // remove it
   }
 
     public void tapOn_ConnectTab() throws Throwable {
        // tapOn_Skip();
-        tapTheElement("Connect", LocatorPropertiesFile);
-        isElementDisplayed("ConnectHeader", LocatorPropertiesFile);
+        tapTheElement("Connect");
+        isElementDisplayed("ConnectHeader");
 
     }
 
     public void tapOn_Chat() throws Throwable {
-        String chatName =  getText("Connect.Chat", LocatorPropertiesFile);
+        String chatName =  getText("Connect.Chat");
         PrintValue("chat name" +chatName);
-        tapTheElement("Connect.Chat", LocatorPropertiesFile);
+        tapTheElement("Connect.Chat");
 
     }
 
     public void verify_ChatUI() throws Throwable {
 
-        isElementDisplayed("Connect.BackArrow", LocatorPropertiesFile);
-        isElementDisplayed("Connect.Type_a_Message", LocatorPropertiesFile);
-        isElementDisplayed("Connect.chat_at_mention_icon", LocatorPropertiesFile);
-        isElementDisplayed("Connect.chat_attachment_icon", LocatorPropertiesFile);
-        isElementDisplayed("Connect.chat_send_inactive_icon", LocatorPropertiesFile);
+        isElementDisplayed("Connect.BackArrow");
+        isElementDisplayed("Connect.Type_a_Message");
+        isElementDisplayed("Connect.chat_at_mention_icon");
+        isElementDisplayed("Connect.chat_attachment_icon");
+        isElementDisplayed("Connect.chat_send_inactive_icon");
         PrintValue("UI verified");
 
     }
 
     public void enter_EmptyMessage() throws Throwable {
 
-        sendKey("Connect.Type_a_Message", LocatorPropertiesFile, "  ");
+        sendKey("Connect.Type_a_Message", "  ");
         PrintValue("Empty space in entered in the input bar");
 
     }
@@ -54,12 +54,12 @@ public class ConnectMethods extends ExcelRead {
     public void sendButton_Disabled() throws Throwable {
 
         try {
-            isElementDisplayed("Connect.chat_send_inactive_icon", LocatorPropertiesFile);
+            isElementDisplayed("Connect.chat_send_inactive_icon");
             PrintValue("Send button is disabled when input is empty");
-            tapTheElement("Connect.BackArrow", LocatorPropertiesFile);
+            tapTheElement("Connect.BackArrow");
         } catch (Exception e) {
             PrintError("Send button is enabled");
-            tapTheElement("Connect.BackArrow", LocatorPropertiesFile);
+            tapTheElement("Connect.BackArrow");
         }
 
 
@@ -69,7 +69,7 @@ public class ConnectMethods extends ExcelRead {
         faker();
         message = testdata.country().name();
         //   message = "man";0
-        sendKey("Connect.Type_a_Message", LocatorPropertiesFile, message);
+        sendKey("Connect.Type_a_Message", message);
         PrintValue(message + " is entered in the input bar");
 
 
@@ -77,7 +77,7 @@ public class ConnectMethods extends ExcelRead {
 
     public void sendButton_Enabled() throws Throwable {
 
-        isElementDisplayed("Connect.chat_send_active_icon", LocatorPropertiesFile);
+        isElementDisplayed("Connect.chat_send_active_icon");
         PrintValue("Send button is enabled when user enters the message in the input bar");
 
     }
@@ -93,7 +93,7 @@ public class ConnectMethods extends ExcelRead {
     public void tap_SendButton() throws Throwable {
 
 
-        tapTheElement("Connect.chat_send_active_icon", LocatorPropertiesFile);
+        tapTheElement("Connect.chat_send_active_icon");
 
     }
 
@@ -198,25 +198,25 @@ public class ConnectMethods extends ExcelRead {
     }
 
     public void bottomSheet() throws Throwable {
-        isElementDisplayed("BottomSheet.Reply", LocatorPropertiesFile);
-        isElementDisplayed("BottomSheet.Edit", LocatorPropertiesFile);
-        isElementDisplayed("BottomSheet.Pin", LocatorPropertiesFile);
-        isElementDisplayed("BottomSheet.SetReminder", LocatorPropertiesFile);
-        isElementDisplayed("BottomSheet.Copy", LocatorPropertiesFile);
-        isElementDisplayed("BottomSheet.Share", LocatorPropertiesFile);
+        isElementDisplayed("BottomSheet.Reply");
+        isElementDisplayed("BottomSheet.Edit");
+        isElementDisplayed("BottomSheet.Pin");
+        isElementDisplayed("BottomSheet.SetReminder");
+        isElementDisplayed("BottomSheet.Copy");
+        isElementDisplayed("BottomSheet.Share");
         try {
-            isElementDisplayed("BottomSheet.Delete", LocatorPropertiesFile);
+            isElementDisplayed("BottomSheet.Delete");
         }
         catch (Exception e){
             PrintValue("Delete option is not available");
         }
-        tapTheElement("CancelButton", LocatorPropertiesFile);
+        tapTheElement("CancelButton");
         PrintValue("Bottom sheet displayed");
     }
 
     public void tapOnTheDeleteButton() throws Throwable {
-        tapTheElement("BottomSheet.Delete", LocatorPropertiesFile);
-        tapTheElement("BottomSheet.DeleteMessage", LocatorPropertiesFile);
+        tapTheElement("BottomSheet.Delete");
+        tapTheElement("BottomSheet.DeleteMessage");
         PrintValue("Tapped on the delete button");
     }
 
@@ -228,13 +228,13 @@ public class ConnectMethods extends ExcelRead {
     }
 
     public void tapOnTheEditButton() throws Throwable {
-        tapTheElement("BottomSheet.Edit", LocatorPropertiesFile);
+        tapTheElement("BottomSheet.Edit");
     }
 
     public void editTheMessage() throws Throwable {
-        tapTheElement("Connect.Type_a_Message", LocatorPropertiesFile).clear();
+        tapTheElement("Connect.Type_a_Message").clear();
         enter_Message();
-        tapTheElement("SaveButton", LocatorPropertiesFile);
+        tapTheElement("SaveButton");
     }
 
     public void verifyEditedMessage() throws Throwable {
@@ -246,7 +246,7 @@ public class ConnectMethods extends ExcelRead {
     }
 
     public void pinTheMessage() throws Throwable {
-        tapTheElement("BottomSheet.Pin", LocatorPropertiesFile);
+        tapTheElement("BottomSheet.Pin");
 
     }
 
@@ -263,7 +263,7 @@ public class ConnectMethods extends ExcelRead {
     }
 
     public void unPinTheMessage() throws Throwable {
-        tapTheElement("BottomSheet.Unpin", LocatorPropertiesFile);
+        tapTheElement("BottomSheet.Unpin");
 
     }
 
@@ -283,12 +283,12 @@ public class ConnectMethods extends ExcelRead {
 
     public void copyAndPasteMessage() throws Throwable {
 
-        tapTheElement("BottomSheet.Copy", LocatorPropertiesFile);
+        tapTheElement("BottomSheet.Copy");
         PrintValue(message + " : is copied");
 
-        longPress(tapTheElement("Connect.Type_a_Message", LocatorPropertiesFile));
-        tapTheElement("Connect.Paste", LocatorPropertiesFile);
-        tapTheElement("Connect.chat_send_active_icon", LocatorPropertiesFile);
+        longPress(tapTheElement("Connect.Type_a_Message"));
+        tapTheElement("Connect.Paste");
+        tapTheElement("Connect.chat_send_active_icon");
 
     }
 
@@ -302,35 +302,35 @@ public class ConnectMethods extends ExcelRead {
     }
 
     public void tapAttachmentButton() throws Throwable {
-        tapTheElement("Connect.chat_attachment_icon", LocatorPropertiesFile);
+        tapTheElement("Connect.chat_attachment_icon");
 
     }
 
     public void clickPhoto() throws Throwable {
-        tapTheElement("Connect.UseCamera", LocatorPropertiesFile);
+        tapTheElement("Connect.UseCamera");
         try {
-            tapTheElement("OK", LocatorPropertiesFile);
+            tapTheElement("OK");
         } catch (Exception e) {
 
         }
-        tapTheElement("Connect.PhotoCapture", LocatorPropertiesFile);
-        tapTheElement("Connect.UsePhoto", LocatorPropertiesFile);
+        tapTheElement("Connect.PhotoCapture");
+        tapTheElement("Connect.UsePhoto");
 
     }
 
     public void sendAttachments() throws Throwable {
-        tapTheElement("Connect.FromFiles", LocatorPropertiesFile);
-        tapTheElement("Connect.Attachments", LocatorPropertiesFile);
+        tapTheElement("Connect.FromFiles");
+        tapTheElement("Connect.Attachments");
         PrintValue("Attachment selected");
     }
 
 
     public void readTheFirstChat() throws Throwable {
         try {
-            WebElement FirstRow = getElement("Connect.FirstRow", LocatorPropertiesFile);
+            WebElement FirstRow = getElement("Connect.FirstRow");
 
             FirstRow.click();
-            tapTheElement("Connect.BackArrow", LocatorPropertiesFile);
+            tapTheElement("Connect.BackArrow");
         }
         catch (Exception e){
 
@@ -340,11 +340,11 @@ public class ConnectMethods extends ExcelRead {
     public void swipeTheChat() throws Throwable {
 
 
-        WebElement firstChat = getElement("Connect.FirstChat", LocatorPropertiesFile);
+        WebElement firstChat = getElement("Connect.FirstChat");
        before_ChatName =  firstChat.getText();
          swipeR2LusingLocator(firstChat);
         try {
-            tapTheElement("Connect.delete_on_swipe", LocatorPropertiesFile);
+            tapTheElement("Connect.delete_on_swipe");
         } catch (Exception e) {
         }
 
@@ -353,14 +353,14 @@ public class ConnectMethods extends ExcelRead {
     public void verify_ChatName() throws Throwable {
 
         readTheFirstChat();
-        WebElement firstChat = getElement("Connect.FirstChat", LocatorPropertiesFile);
+        WebElement firstChat = getElement("Connect.FirstChat");
          after_ChatName =  firstChat.getText();
          assertTextFalse(before_ChatName,after_ChatName);
     }
 
     public void verify_ReminderInRecentChat() throws Throwable {
 
-        isElementDisplayed("Connect.ReminderRecent", LocatorPropertiesFile);
+        isElementDisplayed("Connect.ReminderRecent");
         PrintValue("Active reminder in recent chat is displayed");
 
     }

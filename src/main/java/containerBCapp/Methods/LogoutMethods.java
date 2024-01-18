@@ -6,37 +6,37 @@ public class LogoutMethods extends CommonUtilities {
 
 	public void tapSettingsButton() throws Throwable {
 
-		tapTheElement("Settings", LocatorPropertiesFile);
-		isElementDisplayed("Menu.MyBusiness", LocatorPropertiesFile);
+		tapTheElement("Settings");
+		isElementDisplayed("Menu.MyBusiness");
 
 	}
 
 	public void tapLogoutButton() throws Throwable {
-		tapTheElement("Menu.LogOut", LocatorPropertiesFile);
+		tapTheElement("Menu.LogOut");
 
 	}
 	
 	public void tapCancelButton() throws Throwable {
-		tapTheElement("Menu.Cancel", LocatorPropertiesFile);
+		tapTheElement("Menu.Cancel");
 
 	}
 
 	public void settingsTab() throws Throwable {
 
-		isElementDisplayed("Menu.MyBusiness", LocatorPropertiesFile);
+		isElementDisplayed("Menu.MyBusiness");
 
 	}
 
 	public void tapYesLogoutButton() throws Throwable {
 
-		tapTheElement("Menu.LogOut", LocatorPropertiesFile);
-		tapTheElement("Menu.YesLogOut", LocatorPropertiesFile);
+		tapTheElement("Menu.LogOut");
+		tapTheElement("Menu.YesLogOut");
 
 	}
 
 	public void validateLogout() throws Throwable {
 
-		isElementDisplayed("Login.Email", LocatorPropertiesFile);
+		isElementDisplayed("Login.Email");
 		PrintValue("User logged out successfully");
 
 	}
